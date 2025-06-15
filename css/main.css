@@ -132,12 +132,6 @@ footer{
     align-items: center;
 }
 
-/* .disabled-link {
-    pointer-events: none;
-    opacity: 0.4;
-    color: #aaa;
-} */
-
 @media only screen and (max-width: 767px){
     .hamburger{
         display: block;

@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     let container = document.querySelector("#favorites-container");
-    container.innerHTML="<h1>Favorites</h1>"; 
+    container.innerHTML = `<h1>My Favorite Apartments</h1>`;
 
     if(favorites.length === 0){
-        container.innerHTML += "<p>No preferred apartments to display</p>";
+        container.innerHTML += `<p class="no_favorite_message">No preferred apartments to display</p>`;
         return;
     }
 
@@ -40,7 +40,9 @@ document.addEventListener("DOMContentLoaded", function(){
         card.innerHTML=
         `<img src="${apt.picture_url }" alt="apartmentImage">` +
         `<h3>${apt.name}</h3>` +
-        `<p> ${apt.description}</p>` +
+        `<p>Neighbourhood: ${apt.neighbourhood}</p>` +
+        `<p>Price: ${apt.price}</p>` +
+        `<p>Rating: ${apt.review_scores_rating}</p>` +
         `<button onclick="removeFavorite(${apt.listing_id})">הסר</button>`;
 
         container.appendChild(card);
@@ -63,9 +65,10 @@ function removeFavorite(id){
             newFavorites.push(favorites[i]);
         }
     }
-
     localStorage.setItem(key,JSON.stringify(newFavorites));
+    location.reload();
 }
+
 
 
 

@@ -17,7 +17,8 @@ body{
 }
 .disabled-link {
     pointer-events: none;
-    color: gray;}
+    color: gray;
+}
 
 .container{
     display: flex;

@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 `<p><b>Id:</b> ${apartment.listing_id}</p>` +
                 `<p><b>Description:</b> <br> ${apartment.description}</p>` +
                 `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View Apartment </a>` +
-                `<button class="favoriteBtn" onclick="addToFavorites(${apartment.listing_id})">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
+                `<button class="favoriteBtn" onclick="addToFavorites('${apartment.listing_id}')">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
                 `<button class="rentBtn" onclick="RentClick(${apartment.listing_id})">Rent <i class="fa-solid fa-house"></i></button>`;
 
             listingsContainer.appendChild(card);
@@ -97,28 +97,23 @@ document.addEventListener("DOMContentLoaded", function() {
 })
 
 function addToFavorites(listing_id){
-        const currentUser = localStorage.getItem('currentUser');
-        if (!currentUser){
+        const currentUserRaw = localStorage.getItem('currentUser');
+        if (!currentUserRaw){
           window.location.href = 'login.html';
           return;
         }
 
+        const currentUser = JSON.parse(currentUserRaw);
         const key = `${currentUser.username}_favorites`;
         let favorites = JSON.parse(localStorage.getItem(key)) || [];
 
         if (!favorites.includes(listing_id)){
             favorites.push(listing_id);
             localStorage.setItem(key, JSON.stringify(favorites));
-            // showPopupMessage("The apartment has been added to favorites.");
-            // const favoritesLink = document.querySelector('a[href="favorites.html"]');
-            // if (favoritesLink) {
-            // favoritesLink.classList.remove("disabled-link");
-            // }
-            // window.location.href = "favorites.html";
-            location.reload();
+            alert("Added to favorites!");
         }
         else{
-            showPopupMessage("The apartment is already in the favorites.");
+            alert("Already in favorites.");
         }
 }
 
