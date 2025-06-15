@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function(){
             } else {
                 errorMessageElement.style.color = 'green';
             }
-            setTimeout(() => {
+            setTimeout(function(){
                 errorMessageElement.style.display = 'none';
             }, 5000);
         } else {
@@ -75,7 +75,7 @@ function displayMessage(message, type) {
         }
         errorMessageElement.classList.remove('hidden'); 
 
-        setTimeout(() => {
+        setTimeout(function(){
             errorMessageElement.classList.add('hidden');
             errorMessageElement.textContent = ''; 
         }, 5000);
@@ -149,7 +149,7 @@ else {
      
 
     const rentalForm = document.getElementById('booking_form').querySelector('form');
-    console.log("After getting rentalForm element. Is it found?", rentalForm);
+    // console.log("After getting rentalForm element. Is it found?", rentalForm);
     const fullNameInput = document.getElementById('full-name');
     const emailInput = document.getElementById('email');
     const checkInDateInput = document.getElementById('start-date');
@@ -157,8 +157,8 @@ else {
     const confirmBookingBtn = document.getElementById('confirmBookingBtn');
 
     if (rentalForm) {
-        rentalForm.addEventListener('submit', (event) => {
-            event.preventDefault(); // מונע רענון הדף  ???
+        rentalForm.addEventListener('submit', function(event){
+            event.preventDefault(); 
 
             // וודא ש-apartment אובייקט הדירה זמין ממה שנטען בתחילת הדף
             if (!apartment) {
@@ -193,14 +193,14 @@ else {
             }
  const booking = {
                 id: Date.now(), // ID ייחודי לכל הזמנה
-                listingId: apartment.listing_id, // השתמש ב-ID האמיתי שנטען
+                listingId: apartment.listing_id,
                 apartmentName: apartment.name,
                 apartmentImageUrl: apartment.picture_url,
                 email: email, 
                 fullName: fullName,
                 checkInDate: checkInDate,
                 checkOutDate: checkOutDate,
-                price: `$${apartment.price}`, // המחיר מגיע מנתוני הדירה
+                price: `${apartment.price}`, 
                 bookingDate: new Date().toISOString().split('T')[0] // תאריך יצירת ההזמנה בפורמט YYYY-MM-DD
             };
 
@@ -215,7 +215,7 @@ else {
             rentalForm.reset();
 
             // הפנייה לעמוד My Bookings לאחר השהיה קצרה
-            setTimeout(() => {
+            setTimeout(function(){
                 window.location.href = 'mybookings.html';
             }, 2000); 
         });

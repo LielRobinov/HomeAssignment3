@@ -7,7 +7,6 @@
     <link rel="icon" href="images/icon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/favorites.css">
     <link rel="stylesheet" href="css/main.css">
-    <script src="js/storage.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
@@ -23,7 +22,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="rent.html">Rent</a></li>
         <li><a href="mybookings.html">My Bookings</a></li>
-        <li><a href="favorites.html" class="active">Favorites</a></li>
+        <li><a href="favorites.html" class="active" id="favoritesLink">Favorites</a></li>
         <li><button id="signOutBtn">Sign Out</button></li>
     </ul>
 
@@ -34,15 +33,17 @@
   </header>
 
     <main>
-      <div id="favorites-container">
-       <h1>Favorites</h1>
-      </biv>
+      <section id="favorites-container">
+       <!-- <h1>Favorites</h1> -->
+      </section>
     </main>
 
-      <footer>
+    <footer>
       <p>© 2025 Rent Apartment. All rights reserved.</p>
     </footer>
 
-    <script src="favorites.js"></script>
+    <script src="js/data/amsterdam.js"></script>
+    <script src="js/favorites.js"></script>
+    <script src="js/storage.js"></script>    
   </body>
 </html>
