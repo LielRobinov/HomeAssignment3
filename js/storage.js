@@ -20,6 +20,7 @@ function RentClick(listingId){
     localStorage.setItem("selectListing" , listingId);
     window.location.href = "rent.html";
 }
+
 document.addEventListener("DOMContentLoaded" , function(){
 // יציאה מהחשבון
 const signOutBtn = document.getElementById("signOutBtn");

@@ -1,6 +1,6 @@
 //  הוספה/ביטול השכרות, לפי currentUser
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function(){
     // קבל את האלמנטים מה-HTML שבהם נציג את ההזמנות
     const pastBookingsContainer = document.getElementById('pastBookingsContainer');
     const upcomingBookingsContainer = document.getElementById('upcomingBookingsContainer');
@@ -11,7 +11,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadAndDisplayBookings() {
         // קרא את כל ההזמנות מ-localStorage
-        const allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+        // const allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+        const currentUserRaw = localStorage.getItem("currentUser");
+        if (!currentUserRaw) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const currentUser = JSON.parse(currentUserRaw);
+        const key = `${currentUser.username}_bookings`; 
+        const userBookings = JSON.parse(localStorage.getItem(key)) || [];
         
         // נקה קונטיינרים קיימים לפני הוספת הזמנות חדשות
         pastBookingsContainer.innerHTML = '';
@@ -19,6 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const today = new Date();
         today.setHours(0, 0, 0, 0); // איפוס זמן להשוואת תאריכים מדויקת לפי יום
+        if (new Date(booking.endDate) >= today) {
+            bookingCard.innerHTML += `<button onclick="cancelBooking('${booking.listingId}')">Cancel Booking</button>`;
+        }
 
         let hasUpcoming = false;
         let hasPast = false;
@@ -27,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (noPastBookingsMessage) noPastBookingsMessage.style.display = 'none';
         if (noUpcomingBookingsMessage) noUpcomingBookingsMessage.style.display = 'none';
 
-        if (allBookings.length === 0) {
+        if (userBookings.length === 0) {
             // אם אין בכלל הזמנות, הצג את הודעות "אין הזמנות" בשני המקומות
             if (noPastBookingsMessage) noPastBookingsMessage.style.display = 'block';
             if (noUpcomingBookingsMessage) noUpcomingBookingsMessage.style.display = 'block';
@@ -35,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // עבר על כל ההזמנות וסווג אותן
-        allBookings.forEach(booking => {
+        userBookings.forEach(booking => {
             const checkOutDate = new Date(booking.checkOutDate); // תאריך היציאה מהדירה
             
             // יצירת כרטיס הזמנה (div) עבור כל הזמנה
@@ -43,8 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
             bookingCard.classList.add('booking-card'); // קלאס לעיצוב, אם יש לך CSS עבורו
             bookingCard.innerHTML = `
              <div class="booking-image-container">
-                   <img src="${booking.apartmentImageUrl}" alt="${booking.apartmentName}" class="booking-image">
-              </div>
+               <img src="${booking.apartmentImageUrl}" alt="${booking.apartmentName}" class="booking-image">
+             </div>
                <div class="booking-details">
                 <h4>${booking.apartmentName}</h4>
                 <p><strong>Booking ID:</strong> ${booking.id}</p>

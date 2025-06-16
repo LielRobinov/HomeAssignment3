@@ -125,6 +125,10 @@ body, p, label {
     display: none;
 }
 
+.message-error, .message-success {
+    display: block ;
+    font-weight: bold;
+}
 @media (max-width: 768px) {
     h1{
         font-size: 25px;
