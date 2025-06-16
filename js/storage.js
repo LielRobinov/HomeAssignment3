@@ -38,7 +38,7 @@ if (!currentUser) {
     currentUser = JSON.parse(currentUser);
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
 }
-
+})
 //לא יהיה אפשרות להיכנס לעמוד הfavorites עד שלא נוסיף דירה
 // const currentUser = localStorage.getItem('currentUser');
 // if (!currentUser) 
@@ -57,4 +57,3 @@ if (!currentUser) {
 // }
 
 
-})

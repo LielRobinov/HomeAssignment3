@@ -121,7 +121,7 @@ button{
 .card_link{
     color: black;
     text-decoration: none;
-    margin-top: 20px;
+    margin-top: auto;
     margin-bottom: 20px;
     display: flex;
     align-items: center;

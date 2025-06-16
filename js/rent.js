@@ -1,5 +1,5 @@
 //  ניהול תהליך השכרה של דירה אחת
-console.log("rent.js is alive!");
+// console.log("rent.js is alive!");
 function isDateRangeOverlap(start1, end1, start2, end2) {
   return !(end1 < start2 || start1 > end2);
 }
@@ -20,23 +20,40 @@ function checkAvailability(listingId, startDate, endDate) {
 }
 
 function saveBookingToLocalStorage(booking) {
-    let bookings = JSON.parse(localStorage.getItem('allBookings')) || [];
-    
-    const exists = bookings.some(b => 
-        b.listingId === booking.listingId && 
-        b.checkInDate === booking.checkInDate && 
-        b.checkOutDate === booking.checkOutDate &&
-        b.fullName === booking.fullName
-    );
-
-    if (!exists) {
-        bookings.push(booking);
-        console.log("Saving bookings to localStorage:", bookings);
-        localStorage.setItem('allBookings', JSON.stringify(bookings));
-    } 
-    else {
-        console.warn("Attempted to save a duplicate booking:", booking);
+    const currentUserRaw = localStorage.getItem('currentUser');
+    if (!currentUserRaw) {
+        window.location.href = 'login.html';
+        return;
     }
+
+    const currentUser = JSON.parse(currentUserRaw);
+    const key = `${currentUser.username}_bookings`;
+    const bookings = JSON.parse(localStorage.getItem(key)) || [];
+
+    bookings.push(booking);
+    localStorage.setItem(key, JSON.stringify(bookings));
+
+    const allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+    allBookings.push(booking);
+    localStorage.setItem('allBookings', JSON.stringify(allBookings));
+
+    // let bookings = JSON.parse(localStorage.getItem('allBookings')) || [];
+    
+    // const exists = bookings.some(b => 
+    //     b.listingId === booking.listingId && 
+    //     b.checkInDate === booking.checkInDate && 
+    //     b.checkOutDate === booking.checkOutDate &&
+    //     b.fullName === booking.fullName
+    // );
+
+    // if (!exists) {
+    //     bookings.push(booking);
+    //     console.log("Saving bookings to localStorage:", bookings);
+    //     localStorage.setItem('allBookings', JSON.stringify(bookings));
+    // } 
+    // else {
+    //     console.warn("Attempted to save a duplicate booking:", booking);
+    // }
 }
 
 
@@ -140,12 +157,10 @@ if (mapContainer) {
         .bindPopup('Location of your apartment')
         .openPopup();
     } 
-else if (mapContainer) {
-        console.error("Leaflet (L) library not loaded, cannot initialize map.");
-        }
-else {
-   console.error("Map container not found!");
-     }
+    else if (mapContainer) {
+        console.error("Leaflet (L) library not loaded, cannot initialize map.");}
+    else {
+   console.error("Map container not found!");}
      
 
     const rentalForm = document.getElementById('booking_form').querySelector('form');

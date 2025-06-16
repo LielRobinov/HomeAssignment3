@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 `<h3>${apartment.name}</h3>` +
                 `<p><b>Id:</b> ${apartment.listing_id}</p>` +
                 `<p><b>Description:</b> <br> ${apartment.description}</p>` +
-                `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View Apartment </a>` +
+                `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View apartment details</a>` +
                 `<button class="favoriteBtn" onclick="addToFavorites('${apartment.listing_id}')">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
                 `<button class="rentBtn" onclick="RentClick(${apartment.listing_id})">Rent <i class="fa-solid fa-house"></i></button>`;
 
