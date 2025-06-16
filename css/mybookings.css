@@ -123,7 +123,7 @@ h3{
 .cancelBtn:hover{
     background-color: #c4c3c3;
 }
-
+/* הערה לצורך בדיקת push דרך הgithub */
 @media (max-width: 768px) {
 
    .my-bookings-section {
