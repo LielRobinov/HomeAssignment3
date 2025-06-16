@@ -20,6 +20,7 @@ function RentClick(listingId){
     localStorage.setItem("selectListing" , listingId);
     window.location.href = "rent.html";
 }
+
 document.addEventListener("DOMContentLoaded" , function(){
 // יציאה מהחשבון
 const signOutBtn = document.getElementById("signOutBtn");
@@ -38,7 +39,7 @@ if (!currentUser) {
     currentUser = JSON.parse(currentUser);
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
 }
-
+})
 //לא יהיה אפשרות להיכנס לעמוד הfavorites עד שלא נוסיף דירה
 // const currentUser = localStorage.getItem('currentUser');
 // if (!currentUser) 
@@ -57,4 +58,3 @@ if (!currentUser) {
 // }
 
 
-})

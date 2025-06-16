@@ -16,12 +16,9 @@
         <nav>
     <img src="images/icon.ico" alt="weblogo" class="logo">
     
-    <!-- <h2 id="usernameDisplay"></h2> -->
-
     <ul class="navLinks">
         <li id="usernameDisplay"></li>
         <li><a href="index.html">Home</a></li>
-        <li><a href="rent.html" class="active">Rent</a></li>
         <li><a href="mybookings.html">My Bookings</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><button id="signOutBtn">Sign Out</button></li>
@@ -39,15 +36,15 @@
                 <div id="listing_info"></div>
                 <div id="map"></div>
         </section>
-        <section id="booking_form">
-            <form>
+        <section>
+            <form id="booking_form">
                 <h3>Book Your Stay <i class="fa-solid fa-credit-card"></i></h3>
                 
                     <label for="start-date">Check-in Date:</label> 
-                     <input type="date" id="start-date" name="startDate" required>
+                    <input type="date" id="start-date" name="startDate" required>
                 
-                  <label for="end-date">Check-out Date:</label>
-                <input type="date" id="end-date" name="endDate" required>
+                    <label for="end-date">Check-out Date:</label>
+                    <input type="date" id="end-date" name="endDate" required>
 
                     <label for="full-name">Full Name:</label>
                     <input type="text" id="full-name" name="fullName" required>
@@ -56,7 +53,7 @@
                     <input type="email" id="email" name="email" required>
 
                     <label for="credit-card">Credit Card Number:</label>
-                    <input type="text" id="credit-card" name="creditCard" pattern="\d{13,16}" title="13 to 16 digits" required autocomplete="cc-number">
+                    <input type="text" id="credit-card" name="creditCard" placeholder="0000-0000-0000-0000" pattern="\d{13,16}" title="13 to 16 digits" required autocomplete="cc-number">
 
                     <label for="expiry-date">Expiry Date (MM/YY):</label>
                     <input type="text" id="expiry-date" name="expiryDate" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" required autocomplete="cc-exp">
@@ -74,9 +71,9 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="js/data/amsterdam.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/rent.js" defer></script>
+    <script src="js/data/amsterdam.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/rent.js"></script>
 
   </body>
 </html>

@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function(){
         `<p>Neighbourhood: ${apt.neighbourhood}</p>` +
         `<p>Price: ${apt.price}</p>` +
         `<p>Rating: ${apt.review_scores_rating}</p>` +
-        `<button onclick="removeFavorite(${apt.listing_id})">הסר</button>`;
+        `<button onclick="removeFavorite(${apt.listing_id})">Remove</button>`;
 
         container.appendChild(card);
        }

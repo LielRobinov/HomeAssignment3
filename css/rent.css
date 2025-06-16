@@ -50,7 +50,7 @@ img{
     font-weight: bold;
     color: #333;}
 
-#booking_form{
+section{
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -125,6 +125,10 @@ body, p, label {
     display: none;
 }
 
+.message-error, .message-success {
+    display: block ;
+    font-weight: bold;
+}
 @media (max-width: 768px) {
     h1{
         font-size: 25px;
