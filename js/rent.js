@@ -1,6 +1,6 @@
 //  ניהול תהליך השכרה של דירה אחת
 
-//הצגת הודעות מתאימות
+// הצגת הודעות מתאימות
 function displayMessage(message, type) {
     const MessageElement = document.getElementById("error-message");
     if (MessageElement) {
@@ -25,6 +25,7 @@ function displayMessage(message, type) {
         alert(message); 
     }
 }
+    let apartment = null;
 
 document.addEventListener("DOMContentLoaded", function(){
 //בדיקה אם המשתמש מחובר
@@ -33,6 +34,7 @@ const currentUserRaw = localStorage.getItem('currentUser');
         window.location.href = 'login.html';
         return;
     }
+// console.log("Loaded user bookings:", allBookings);
 
     const currentUser = JSON.parse(currentUserRaw);
     let listingId = localStorage.getItem("selectListing");
@@ -42,7 +44,6 @@ const currentUserRaw = localStorage.getItem('currentUser');
     }
 
     let amsterdam = window.amsterdam || [];
-    let apartment = null;
 
     for (let i=0; i < amsterdam.length; i++){
         if(String(amsterdam[i].listing_id) === String(listingId)){
@@ -50,6 +51,7 @@ const currentUserRaw = localStorage.getItem('currentUser');
             break;
         }
     }
+    console.log("Apartment data before booking:", apartment);
 
     if(apartment !== null){
         const listingInfo = document.querySelector("#listing_info");
@@ -136,33 +138,53 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 
     if (!currentUserStr) {
         window.location.href = "login.html";
+        return;
     }
 
     let currentUser = JSON.parse(currentUserStr);
     let key =`${currentUser.username}_bookings`;
     let userBookings = JSON.parse(localStorage.getItem(key)) || [];
 
+
     if (!checkAvailability(listingId , startDate , endDate)){
         displayMessage("These dates are already booked.","error");
         return;
     }
-    
-    userBookings.push({
+
+console.log("Apartment object before booking:", apartment);
+console.log("Apartment name:", apartment.name);
+console.log("Apartment image URL:", apartment.picture_url); // בדיקה אם תמונת הדירה קיימת
+    const booking = {
+        id: Date.now(), // מזהה ייחודי
         listingId: listingId,
+        apartmentName: apartment.name, // הוספת שם הדירה
+        apartmentImageUrl: apartment.picture_url, // הוספת תמונה
         startDate: startDate,
-        endDate: endDate
-    })
+        endDate: endDate,
+        price: `${apartment.price}`, // מחיר
+        bookingDate: new Date().toISOString().split('T')[0] // תאריך הזמנה
+    };
+
+    userBookings.push(booking);
 
     localStorage.setItem(key, JSON.stringify(userBookings));
+    //בדיקות נוספות
+    console.log("Booking key:", key);
+    console.log("Saved booking data:", localStorage.getItem(key));
+
+
     displayMessage("Booking confirmed! Redirecting to My Bookings." , "success");
 
     setTimeout(function () {
-    window.location.href = "mybookings.html";}, 2000);
+    window.location.href = "mybookings.html";}, 5000);
 })
 
 
 
-
+//הקוד של בר
+// function isDateRangeOverlap(start1, end1, start2, end2) {
+//   return !(end1 < start2 || start1 > end2);
+// }
 
 // function checkAvailability(listingId, startDate, endDate) {
 //     const allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
@@ -180,23 +202,6 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 // }
 
 // function saveBookingToLocalStorage(booking) {
-//     const currentUserRaw = localStorage.getItem('currentUser');
-//     if (!currentUserRaw) {
-//         window.location.href = 'login.html';
-//         return;
-//     }
-
-//     const currentUser = JSON.parse(currentUserRaw);
-//     const key = `${currentUser.username}_bookings`;
-//     const bookings = JSON.parse(localStorage.getItem(key)) || [];
-
-//     bookings.push(booking);
-//     localStorage.setItem(key, JSON.stringify(bookings));
-
-//     const allBookings = JSON.parse(localStorage.getItem('allBookings')) || [];
-//     allBookings.push(booking);
-//     localStorage.setItem('allBookings', JSON.stringify(allBookings));
-
 //     let bookings = JSON.parse(localStorage.getItem('allBookings')) || [];
     
 //     const exists = bookings.some(b => 
@@ -240,6 +245,27 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 //     }
 
 
+// function displayMessage(message, type) {
+//     if (errorMessageElement) {
+//         errorMessageElement.textContent = message;
+//         errorMessageElement.classList.remove('message-error', 'message-success', 'hidden'); 
+
+//         if (type === 'error') {
+//             errorMessageElement.classList.add('message-error');
+//         } else if (type === 'success') {
+//             errorMessageElement.classList.add('message-success');
+//         }
+//         errorMessageElement.classList.remove('hidden'); 
+
+//         setTimeout(function(){
+//             errorMessageElement.classList.add('hidden');
+//             errorMessageElement.textContent = ''; 
+//         }, 5000);
+//     } else {
+//         console.error("Error message element not found with ID 'error-message'.");
+//         alert(message); 
+//     }
+// }
 
 //     let listingId = localStorage.getItem("selectListing"); 
 // if (!listingId) {
@@ -376,6 +402,14 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 //     }
 
 // }); 
+
+
+
+
+
+
+
+
 
 
 /*

@@ -16,12 +16,9 @@
         <nav>
     <img src="images/icon.ico" alt="weblogo" class="logo">
     
-    <!-- <h2 id="usernameDisplay"></h2> -->
-
     <ul class="navLinks">
         <li id="usernameDisplay"></li>
         <li><a href="index.html">Home</a></li>
-        <!-- <li><a href="rent.html" class="active">Rent</a></li> -->
         <li><a href="mybookings.html">My Bookings</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><button id="signOutBtn">Sign Out</button></li>
@@ -39,8 +36,8 @@
                 <div id="listing_info"></div>
                 <div id="map"></div>
         </section>
-        <section id="booking_form">
-            <form>
+        <section>
+            <form id="booking_form">
                 <h3>Book Your Stay <i class="fa-solid fa-credit-card"></i></h3>
                 
                     <label for="start-date">Check-in Date:</label> 
@@ -74,9 +71,9 @@
     </footer>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="js/data/amsterdam.js" defer></script>
-    <script src="js/storage.js" defer></script>
-    <script src="js/rent.js" defer></script>
+    <script src="js/data/amsterdam.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/rent.js"></script>
 
   </body>
 </html>
