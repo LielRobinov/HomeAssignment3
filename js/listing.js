@@ -1,7 +1,6 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-
     if (window.amsterdam && Array.isArray(window.amsterdam)) {
         displayListings(amsterdam);
     } else {
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 `<p><b>Id:</b> ${apartment.listing_id}</p>` +
                 `<p><b>Description:</b> <br> ${apartment.description}</p>` +
                 `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View Apartment </a>` +
-                `<button class="favoriteBtn">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
+                `<button class="favoriteBtn" onclick="addToFavorites('${apartment.listing_id}')">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
                 `<button class="rentBtn" onclick="RentClick(${apartment.listing_id})">Rent <i class="fa-solid fa-house"></i></button>`;
 
             listingsContainer.appendChild(card);
@@ -74,9 +73,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         displayListings(filtered);
     })
-})
 
-document.addEventListener("DOMContentLoaded", function() {
+
     const roomsSelect = document.getElementById("rooms");
     const minRooms = 1;
     const maxRooms = 10;
@@ -95,6 +93,53 @@ document.addEventListener("DOMContentLoaded", function() {
 
        const section = document.querySelector("section");
        section.insertBefore(totalElement , section.firstChild);
-}})
+    }
+})
+
+function addToFavorites(listing_id){
+        const currentUserRaw = localStorage.getItem('currentUser');
+        if (!currentUserRaw){
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const currentUser = JSON.parse(currentUserRaw);
+        const key = `${currentUser.username}_favorites`;
+        let favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+        if (!favorites.includes(listing_id)){
+            favorites.push(listing_id);
+            localStorage.setItem(key, JSON.stringify(favorites));
+            alert("Added to favorites!");
+        }
+        else{
+            alert("Already in favorites.");
+        }
+}
+
+
+
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     const roomsSelect = document.getElementById("rooms");
+//     const minRooms = 1;
+//     const maxRooms = 10;
+
+//     for (let i = minRooms; i <= maxRooms; i++) {
+//         const option = document.createElement("option");
+//         option.value = i;
+//         option.textContent = i;
+//         roomsSelect.appendChild(option);
+//     }
+
+//     if (window.amsterdam && Array.isArray(window.amsterdam)) {
+//         const totalElement = document.createElement("h1");
+//         totalElement.textContent = `Total apartments in Amsterdam: ${window.amsterdam.length}`;
+//         totalElement.classList.add("total-info");
+
+//        const section = document.querySelector("section");
+//        section.insertBefore(totalElement , section.firstChild);
+// }})
 
 

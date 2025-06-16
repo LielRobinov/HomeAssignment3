@@ -1,5 +1,4 @@
 // פונקציות כלליות לעבודה עם localStorage
-
 function toggelMenu() {
     const hamburgerBtn = document.querySelector("#hamburgerBtn");
     const icon = hamburgerBtn.querySelector("i");
@@ -21,7 +20,7 @@ function RentClick(listingId){
     localStorage.setItem("selectListing" , listingId);
     window.location.href = "rent.html";
 }
-
+document.addEventListener("DOMContentLoaded" , function(){
 // יציאה מהחשבון
 const signOutBtn = document.getElementById("signOutBtn");
 signOutBtn.addEventListener("click", function() {
@@ -40,3 +39,22 @@ if (!currentUser) {
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
 }
 
+//לא יהיה אפשרות להיכנס לעמוד הfavorites עד שלא נוסיף דירה
+// const currentUser = localStorage.getItem('currentUser');
+// if (!currentUser) 
+//     return;
+
+// const key = `${currentUser.username}_favorites`;
+// const favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+// const favoritesLink = document.querySelector('a[href="favorites.html"]');
+// if (favoritesLink) {
+// if (favorites.length === 0) {
+//     favoritesLink.classList.add("disabled-link");
+// } else {
+//     favoritesLink.classList.remove("disabled-link");
+// }
+// }
+
+
+})

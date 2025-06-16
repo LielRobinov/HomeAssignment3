@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    /* font-family: Arial, sans-serif; */
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -10,16 +10,16 @@ body {
     max-width: 960px; 
     margin: 40px auto;
     padding: 25px;
-    background-color: #ffffff;
+    background-color: #f5f6f6;
     border-radius: 10px; 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
 }
 
 h2{
     color: #3a3a3a;
     text-align: center;
     margin-bottom: 30px;
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid #e0dfdf;
     padding-bottom: 15px;
     font-family: 'Nunito', sans-serif;
 }
@@ -47,13 +47,13 @@ h2{
 .category h3 {
     font-size: 1.8em;
     color: #3a3a3a;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: start;
     font-family: 'Nunito', sans-serif;
     margin-top: 20px;
 }
 
- h3 {
+h3{
     font-size: 1.8em;
     color: #3a3a3a;
     margin-bottom: 0px;
@@ -72,7 +72,7 @@ h2{
     margin-top: 15px;
 }
 
-.booking-card {
+.booking-card{
     background-color: #ffffff;
     border: 1px solid #e0e0e0; 
     border-radius: 8px; 
@@ -109,19 +109,12 @@ h2{
     gap: 20px;
 }
 
-.booking-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
 
 @media (max-width: 768px) {
 
    .my-bookings-section {
         margin: 20px 10px;
         padding: 15px; 
-        box-shadow: none; 
     }
    
     h2 {
@@ -145,7 +138,6 @@ h2{
         gap: 10px; 
     }
 
-   
     .booking-image-container {
         width: 100%; 
         height: 180px; 
@@ -153,7 +145,6 @@ h2{
         align-items: center;
     }
 
-    
     .booking-details {
         width: 100%; 
     }

@@ -71,17 +71,17 @@ margin-left: 20px;
     transform-origin: left;
 }
 
-.navLinks li a:hover::after {
+.navLinks li a:hover::after,
+.navLinks li a.active::after{
     transform: scaleX(1);
 }
 
-.active{
+/* .active{
     background-color: grey;
     border-radius: 4px;
-}
+} */
 
 #signOutBtn{
-    margin-left: 40px;
     height: 100%;
     width: 100%;
     max-width: 80px;
@@ -114,10 +114,12 @@ margin-left: 20px;
     font-family: 'Nunito', sans-serif;
     padding: 5px;
     border-radius: 4px;
-    opacity: 0.5;
+    opacity: 0.7;
     margin-right: 40px;
+    margin-top: 10px;
     font-size: 25px;   
     font-weight: bold;
+    color: #c4c3c3;
 }
 
 footer{
@@ -128,13 +130,6 @@ footer{
     text-align: center;
     justify-content: center;
     align-items: center;
-}
-
-.disabled-link {
-    cursor: not-allowed;
-    pointer-events: none;
-    opacity: 0.6;
-    color: #aaa;
 }
 
 @media only screen and (max-width: 767px){
@@ -158,7 +153,6 @@ footer{
     }
 
     #signOutBtn{
-     margin-right: 40px;
      margin-top: 10px;
     }
 
