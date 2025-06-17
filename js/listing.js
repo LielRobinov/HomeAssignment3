@@ -132,25 +132,5 @@ function RentClick(listingId){
 
 
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     const roomsSelect = document.getElementById("rooms");
-//     const minRooms = 1;
-//     const maxRooms = 10;
-
-//     for (let i = minRooms; i <= maxRooms; i++) {
-//         const option = document.createElement("option");
-//         option.value = i;
-//         option.textContent = i;
-//         roomsSelect.appendChild(option);
-//     }
-
-//     if (window.amsterdam && Array.isArray(window.amsterdam)) {
-//         const totalElement = document.createElement("h1");
-//         totalElement.textContent = `Total apartments in Amsterdam: ${window.amsterdam.length}`;
-//         totalElement.classList.add("total-info");
-
-//        const section = document.querySelector("section");
-//        section.insertBefore(totalElement , section.firstChild);
-// }})
 
 
