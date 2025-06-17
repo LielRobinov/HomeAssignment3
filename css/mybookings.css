@@ -1,10 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ebebeb;
-}
-
 .my-bookings-section {
     max-width: 960px; 
     margin: 40px auto;
@@ -15,18 +8,16 @@ body {
 }
 
 h2{
-    color: #3a3a3a;
+    color: #333;
     text-align: center;
     margin-bottom: 30px;
     border-bottom: 2px solid #e0dfdf;
     padding-bottom: 15px;
-    font-family: 'Nunito', sans-serif;
 }
 
 .info-message {
     text-align: center;
-    font-size: medium;
-    color: #555;
+    color: #333;
     margin-top: -15px;
     margin-bottom: 30px;
     font-style: italic;
@@ -44,31 +35,25 @@ h2{
 }
 
 .category h3 {
-    font-size: 1.8em;
-    color: #3a3a3a;
+    font-size: 26px;
+    color: #333;
     margin-bottom: 20px;
     text-align: start;
-    font-family: 'Nunito', sans-serif;
     margin-top: 20px;
 }
 
-h3{
-    font-size: 1.8em;
-    color: #3a3a3a;
-    margin-bottom: 0px;
-    text-align: start;
-    font-family: 'Nunito', sans-serif;
-    margin-top: 20px;
-}
 
-.no-bookings-message {
-    text-align: center;
-    color: #777;
-    font-style: italic;
-    padding: 15px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
-    margin-top: 15px;
+.noBookingsMessage{
+  text-align: center;
+  color: #777;
+  font-style: italic;
+  padding: 15px;
+  background-color: #e9e9e9;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
 }
 
 .booking-card{
@@ -118,13 +103,18 @@ h3{
     margin-bottom: 5px;
     margin-top: 5px;
     cursor: pointer;
+    font-family: 'Nunito', sans-serif;
 }
 
 .cancelBtn:hover{
     background-color: #c4c3c3;
 }
-/* הערה לצורך בדיקת push דרך הgithub */
+
 @media (max-width: 768px) {
+    .category{
+        margin-bottom: 20px;
+        padding: 10px;
+    }
 
    .my-bookings-section {
         margin: 20px 10px;
@@ -132,13 +122,13 @@ h3{
     }
    
     h2 {
-        font-size: 1.8em; 
+        font-size: 28px; 
         margin-bottom: 20px;
         padding-bottom: 10px;
     }
 
     .category h3 {
-        font-size: 1.5em; 
+        font-size: 24px; 
         margin-top: 15px;
         margin-bottom: 10px;
     }
@@ -156,7 +146,6 @@ h3{
         width: 100%; 
         height: 180px; 
         margin-bottom: 10px;
-        align-items: center;
     }
 
     .booking-details {
@@ -164,18 +153,24 @@ h3{
     }
 
     .booking-details h4 {
-        font-size: 1.3em;
+        font-size:21px;
         margin-bottom: 8px;
     }
 
     .booking-details p {
-        font-size: 0.85em;
+        font-size:14px;
         margin-bottom: 4px;
     }
 
-    .no-bookings-message {
-        padding: 10px;
-        font-size: 0.8em;
-        margin-top: 10px;
+    .noBookingsMessage{
+        padding:10px;
+        font-size:14px;
+        margin-top:10px;
+    }
+
+    .cancelBtn {
+        max-width: 100px;
+        font-size: 12px;
+        padding: 8px;
     }
 }

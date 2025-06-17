@@ -1,12 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    if (window.amsterdam && Array.isArray(window.amsterdam)) {
-        displayListings(amsterdam);
-    } else {
+    if (!window.amsterdam || !Array.isArray(window.amsterdam)) {
         console.error("Amsterdam data not found!");
-    }
-
+        return;
+    } 
+    displayListings(window.amsterdam);
+    
     // הצגת הדירות בדף
     function displayListings(listings) {
         const listingsContainer = document.getElementById('listings');
@@ -36,18 +36,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterBtn = document.getElementById("filterBtn");
     filterBtn.addEventListener("click" , function(event){
         event.preventDefault();
-    })
-
-    filterBtn.addEventListener("click", function() {
-        let minRating = parseFloat(document.getElementById("rating").value);
+        
+        let minRating = parseFloat(document.getElementById("rating").value.trim());
         if(isNaN(minRating)){
             minRating = 0;
         }
-        let minPrice = parseFloat(document.getElementById("minPrice").value);
+        let minPrice = parseFloat(document.getElementById("minPrice").value.trim());
         if(isNaN(minPrice)){
             minPrice = 0;
         }
-        let maxPrice = parseFloat(document.getElementById("maxPrice").value);
+        let maxPrice = parseFloat(document.getElementById("maxPrice").value.trim());
         if(isNaN(maxPrice)){
             maxPrice =Infinity;
         }
@@ -72,6 +70,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         displayListings(filtered);
+
+        if (filtered.length === 0) {
+        document.getElementById("listings").innerHTML = `<p>No apartments match your search criteria.</p>`;
+        }
+
     })
 
 
@@ -87,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (window.amsterdam && Array.isArray(window.amsterdam)) {
-        const totalElement = document.createElement("h1");
-        totalElement.textContent = `Total apartments in Amsterdam: ${window.amsterdam.length}`;
+        const totalElement = document.createElement("div");
+        totalElement.innerHTML = `<i class="fa-solid fa-house-chimney"></i><h3>${window.amsterdam.length} Apartments</h3>`;
         totalElement.classList.add("total-info");
 
        const section = document.querySelector("section");
@@ -116,6 +119,14 @@ function addToFavorites(listing_id){
             alert("Already in favorites.");
         }
 }
+
+//מעבר לעמוד
+function RentClick(listingId){
+    localStorage.setItem("selectListing" , listingId);
+    window.location.href = "rent.html";
+}
+
+
 
 
 

@@ -10,7 +10,7 @@ function SignUp(event){
     const userName = document.querySelector("#username").value;
     const password = document.querySelector("#password").value;
 
-    if(!userName || !password){
+    if(!userName.trim() || !password.trim()){
     showPopupMessage("Please fill in both username and password.");
     return;}
 
@@ -69,7 +69,8 @@ for (let i=0 ; i< usersList.length; i++)
         user = true;
         if(usersList[i].password === password){
             localStorage.setItem("currentUser" , JSON.stringify(usersList[i]));
-            window.location.href="index.html";
+            setTimeout(function() {
+            window.location.href = "index.html";}, 100);
             return;
         }
         else{

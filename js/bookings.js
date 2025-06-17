@@ -5,10 +5,6 @@ document.addEventListener('DOMContentLoaded', function(){
     const pastBookingsContainer = document.getElementById('pastBookingsContainer');
     const upcomingBookingsContainer = document.getElementById('upcomingBookingsContainer');
 
-    // קבל את אלמנטי ההודעות למקרה שאין הזמנות
-    const noPastBookingsMessage = document.getElementById('noPastBookingsMessage');
-    const noUpcomingBookingsMessage = document.getElementById('noUpcomingBookingsMessage');
-
     function loadAndDisplayBookings() {
         const currentUserRaw = localStorage.getItem("currentUser");
         if (!currentUserRaw) {
@@ -16,12 +12,10 @@ document.addEventListener('DOMContentLoaded', function(){
            return;
         }
 
-
         const currentUser = JSON.parse(currentUserRaw);
         const key = `${currentUser.username}_bookings`;
         const allBookings = JSON.parse(localStorage.getItem(key)) || [];
         console.log("Loaded user bookings:", allBookings); //בדיקה
-
 
         // נקה קונטיינרים קיימים לפני הוספת הזמנות חדשות
         pastBookingsContainer.innerHTML = '';
@@ -33,18 +27,19 @@ document.addEventListener('DOMContentLoaded', function(){
         let hasUpcoming = false;
         let hasPast = false;
 
-        // הסתר את הודעות "אין הזמנות" בהתחלה, נציג אותן רק אם אין
-        if (noPastBookingsMessage){
-            noPastBookingsMessage.style.display = 'none';
-        }
-        if (noUpcomingBookingsMessage){
-            noUpcomingBookingsMessage.style.display = 'none';
-        } 
         if (allBookings.length === 0) {
-            // אם אין בכלל הזמנות, הצג את הודעות "אין הזמנות" בשני המקומות
-            if (noPastBookingsMessage) noPastBookingsMessage.style.display = 'block';
-            if (noUpcomingBookingsMessage) noUpcomingBookingsMessage.style.display = 'block';
-            return; // סיים את הפונקציה
+        // **ניצור הודעות חדשות במקרה שאין הזמנות כלל**
+        const noPastMessage = document.createElement("p");
+        noPastMessage.textContent = "You have no past bookings.";
+        noPastMessage.classList.add("noBookingsMessage");
+        pastBookingsContainer.appendChild(noPastMessage);
+
+        const noUpcomingMessage = document.createElement("p");
+        noUpcomingMessage.textContent = "You have no upcoming bookings.";
+        noUpcomingMessage.classList.add("noBookingsMessage");
+        upcomingBookingsContainer.appendChild(noUpcomingMessage);
+
+        return; 
         }
 
         // עבר על כל ההזמנות וסווג אותן
@@ -71,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function(){
             console.log("Loading image:", booking.apartmentImageUrl);
 
             // השוואה לתאריך הנוכחי
-            if (checkOutDate < today) {
+            if (checkOutDate < today || (checkOutDate.getTime() <= today.getTime())) {
                 // הזמנות עבר (תאריך יציאה עבר את היום הנוכחי)
                 pastBookingsContainer.appendChild(bookingCard);
                 hasPast = true;
@@ -79,27 +74,37 @@ document.addEventListener('DOMContentLoaded', function(){
                 // הזמנות עתידיות (תאריך יציאה עדיין לא הגיע או זה היום)
                 upcomingBookingsContainer.appendChild(bookingCard);
                 hasUpcoming = true;
+
+                //הוספת כפתור ביטול
+                if(checkOutDate.getTime() > today.getTime()){
+                const cancelBtn = document.createElement("button");
+                cancelBtn.textContent = "Cancel Booking";
+                cancelBtn.classList.add("cancelBtn");
+                cancelBtn.addEventListener("click", function(){
+                cancelBooking(booking.id);
+                })
+
+                bookingCard.querySelector(".booking-details").appendChild(cancelBtn);
+                }
             }
 
-            //הוספת כפתור ביטול
-            const cancelBtn = document.createElement("button");
-            cancelBtn.textContent = "Cancel Booking";
-            cancelBtn.classList.add("cancelBtn");
-            cancelBtn.addEventListener("click", function(){
-                cancelBooking(booking.id);
-            })
+            console.log("Today's date (timestamp):", today.getTime());
+            console.log("Booking checkout date (timestamp):", checkOutDate.getTime());
 
-            bookingCard.querySelector(".booking-details").appendChild(cancelBtn);
-
-        });
-
+        })
 
         // לאחר סיום הלולאה, בדוק אם היו הזמנות בכל קטגוריה
-        if (!hasPast && noPastBookingsMessage) {
-            noPastBookingsMessage.style.display = 'block';
+        if (!hasPast) {
+           const noPastMessage = document.createElement("p");
+           noPastMessage.textContent = "You have no past bookings.";
+           noPastMessage.classList.add("noBookingsMessage");
+           pastBookingsContainer.appendChild(noPastMessage)
         }
-        if (!hasUpcoming && noUpcomingBookingsMessage) {
-            noUpcomingBookingsMessage.style.display = 'block';
+        if (!hasUpcoming) {
+            const noUpcomingMessage = document.createElement("p");
+            noUpcomingMessage.textContent = "You have no upcoming bookings.";
+            noUpcomingMessage.classList.add("noBookingsMessage");
+            upcomingBookingsContainer.appendChild(noUpcomingMessage);
         }
     }
 
