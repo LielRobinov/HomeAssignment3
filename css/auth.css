@@ -24,7 +24,7 @@ body::before{
     height: 100%;
     top: 0;
     left: 0;
-    background-image: url(/images/bggg.jpg);
+    background-image: url(/images/loginBackground.jpg);
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
