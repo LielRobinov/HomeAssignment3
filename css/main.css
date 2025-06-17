@@ -76,11 +76,6 @@ margin-left: 20px;
     transform: scaleX(1);
 }
 
-/* .active{
-    background-color: grey;
-    border-radius: 4px;
-} */
-
 #signOutBtn{
     height: 100%;
     width: 100%;
@@ -130,6 +125,7 @@ footer{
     text-align: center;
     justify-content: center;
     align-items: center;
+    color: #c4c3c3;
 }
 
 @media only screen and (max-width: 767px){

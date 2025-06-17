@@ -145,6 +145,25 @@ document.getElementById("booking_form").addEventListener("submit", function(even
     let key =`${currentUser.username}_bookings`;
     let userBookings = JSON.parse(localStorage.getItem(key)) || [];
 
+    if(!startDate || !endDate){
+        displayMessage("Please select both check-in and check-out dates.", "error");
+        return;
+    }
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+
+    if (startDateObj < today || endDateObj < today){
+        displayMessage("You cannot book past dates.", "error");
+        return;
+    }
+
+    if (endDateObj <= startDate){
+        displayMessage("Check-out date must be after check-in date.", "error");
+        return; 
+    }
 
     if (!checkAvailability(listingId , startDate , endDate)){
         displayMessage("These dates are already booked.","error");
@@ -154,15 +173,17 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 console.log("Apartment object before booking:", apartment);
 console.log("Apartment name:", apartment.name);
 console.log("Apartment image URL:", apartment.picture_url); // בדיקה אם תמונת הדירה קיימת
+
+//יצירת הזמנה
     const booking = {
-        id: Date.now(), // מזהה ייחודי
+        id: Date.now(), 
         listingId: listingId,
-        apartmentName: apartment.name, // הוספת שם הדירה
-        apartmentImageUrl: apartment.picture_url, // הוספת תמונה
+        apartmentName: apartment.name, 
+        apartmentImageUrl: apartment.picture_url,
         startDate: startDate,
         endDate: endDate,
-        price: `${apartment.price}`, // מחיר
-        bookingDate: new Date().toISOString().split('T')[0] // תאריך הזמנה
+        price: `${apartment.price}`, 
+        bookingDate: new Date().toISOString().split('T')[0]
     };
 
     userBookings.push(booking);

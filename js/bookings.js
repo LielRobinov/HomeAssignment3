@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function(){
             console.log("Loading image:", booking.apartmentImageUrl);
 
             // השוואה לתאריך הנוכחי
-            if (checkOutDate < today) {
+            if (checkOutDate < today || (checkOutDate.getTime() <= today.getTime())) {
                 // הזמנות עבר (תאריך יציאה עבר את היום הנוכחי)
                 pastBookingsContainer.appendChild(bookingCard);
                 hasPast = true;
@@ -79,17 +79,22 @@ document.addEventListener('DOMContentLoaded', function(){
                 // הזמנות עתידיות (תאריך יציאה עדיין לא הגיע או זה היום)
                 upcomingBookingsContainer.appendChild(bookingCard);
                 hasUpcoming = true;
+
+                //הוספת כפתור ביטול
+                if(checkOutDate.getTime() > today.getTime()){
+                const cancelBtn = document.createElement("button");
+                cancelBtn.textContent = "Cancel Booking";
+                cancelBtn.classList.add("cancelBtn");
+                cancelBtn.addEventListener("click", function(){
+                cancelBooking(booking.id);
+                })
+
+                bookingCard.querySelector(".booking-details").appendChild(cancelBtn);
+                }
             }
 
-            //הוספת כפתור ביטול
-            const cancelBtn = document.createElement("button");
-            cancelBtn.textContent = "Cancel Booking";
-            cancelBtn.classList.add("cancelBtn");
-            cancelBtn.addEventListener("click", function(){
-                cancelBooking(booking.id);
-            })
-
-            bookingCard.querySelector(".booking-details").appendChild(cancelBtn);
+            console.log("Today's date (timestamp):", today.getTime());
+            console.log("Booking checkout date (timestamp):", checkOutDate.getTime());
 
         });
 
