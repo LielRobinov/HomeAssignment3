@@ -205,7 +205,7 @@ console.log("Apartment image URL:", apartment.picture_url); // בדיקה אם �
     displayMessage("Booking confirmed! Redirecting to My Bookings." , "success");
 
     setTimeout(function () {
-    window.location.href = "mybookings.html";}, 5000);
+    window.location.href = "mybookings.html";}, 3000);
 })
 
 
