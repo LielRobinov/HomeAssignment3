@@ -90,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (window.amsterdam && Array.isArray(window.amsterdam)) {
-        const totalElement = document.createElement("h1");
-        totalElement.textContent = `Total apartments in Amsterdam: ${window.amsterdam.length}`;
+        const totalElement = document.createElement("div");
+        totalElement.innerHTML = `<i class="fa-solid fa-house-chimney"></i><h3>${window.amsterdam.length} Apartments</h3>`;
         totalElement.classList.add("total-info");
 
        const section = document.querySelector("section");

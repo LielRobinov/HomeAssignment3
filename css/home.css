@@ -1,9 +1,25 @@
 .total-info{
-color: #e8ecec;
-font-size: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
 text-align: center;
-margin-bottom: 20px;
-margin-top: 20px;
+flex-wrap: wrap;
+gap: 5px;
+text-align: center;
+font-weight: bold;
+color: #e8ecec;
+padding: 10px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(25, 25, 26, 0.9);
+border: 1.5px solid #7a878f;
+margin-bottom: 0px;
+width: fit-content;  
+margin-bottom: 15px;  
+}
+
+.total-info i{
+    margin-bottom: 3px;
+    font-size: 16px;
 }
 
 form{
