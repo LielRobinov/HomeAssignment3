@@ -136,6 +136,7 @@ document.getElementById("booking_form").addEventListener("submit", function(even
     let endDate = document.getElementById("end-date").value;
     let currentUserStr = localStorage.getItem("currentUser");
 
+
     if (!currentUserStr) {
         window.location.href = "login.html";
         return;
@@ -154,6 +155,8 @@ document.getElementById("booking_form").addEventListener("submit", function(even
     today.setHours(0,0,0,0);
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
+
+
 
     if (startDateObj < today || endDateObj < today){
         displayMessage("You cannot book past dates.", "error");
@@ -185,6 +188,8 @@ console.log("Apartment image URL:", apartment.picture_url); // בדיקה אם �
         price: `${apartment.price}`, 
         bookingDate: new Date().toISOString().split('T')[0]
     };
+
+
 
     userBookings.push(booking);
 
