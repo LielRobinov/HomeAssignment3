@@ -9,16 +9,17 @@ document.addEventListener("DOMContentLoaded", function(){
     const key = `${currentUser.username}_favorites`;
     const favorites = JSON.parse(localStorage.getItem(key)) || [];
 
+    let container = document.querySelector("#favorites-container");
+
     if (!window.amsterdam || !Array.isArray(window.amsterdam)){
-        console.error("Missing apartment data");
+        container.innerHTML += `<p class="noFavoriteMessage">Error: please try again later.</p>`
         return;
     }
 
-    let container = document.querySelector("#favorites-container");
     container.innerHTML = `<h1>My Favorite Apartments</h1>`;
 
     if(favorites.length === 0){
-        container.innerHTML += `<p class="no_favorite_message">No preferred apartments to display</p>`;
+        container.innerHTML += `<p class="noFavoriteMessage">No preferred apartments to display</p>`;
         return;
     }
 

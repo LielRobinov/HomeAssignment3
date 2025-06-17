@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #ebebeb;
 }
 
@@ -20,7 +19,6 @@ h2{
     margin-bottom: 30px;
     border-bottom: 2px solid #e0dfdf;
     padding-bottom: 15px;
-    font-family: 'Nunito', sans-serif;
 }
 
 .info-message {
@@ -48,7 +46,6 @@ h2{
     color: #3a3a3a;
     margin-bottom: 20px;
     text-align: start;
-    font-family: 'Nunito', sans-serif;
     margin-top: 20px;
 }
 
@@ -57,7 +54,6 @@ h3{
     color: #3a3a3a;
     margin-bottom: 0px;
     text-align: start;
-    font-family: 'Nunito', sans-serif;
     margin-top: 20px;
 }
 
@@ -118,6 +114,7 @@ h3{
     margin-bottom: 5px;
     margin-top: 5px;
     cursor: pointer;
+    font-family: 'Nunito', sans-serif;
 }
 
 .cancelBtn:hover{
