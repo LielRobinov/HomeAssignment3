@@ -79,13 +79,6 @@ select{
     font-family: 'Nunito', sans-serif;
 }
 
-/* .btnGroup{
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-} */
-
 #filterBtn:hover{
     background-color: #ededed;
 }
@@ -152,6 +145,7 @@ select{
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 600;
 }
 
 .card_link:hover{

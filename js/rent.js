@@ -34,7 +34,6 @@ const currentUserRaw = localStorage.getItem('currentUser');
         window.location.href = 'login.html';
         return;
     }
-// console.log("Loaded user bookings:", allBookings);
 
     const currentUser = JSON.parse(currentUserRaw);
     let listingId = localStorage.getItem("selectListing");
@@ -156,8 +155,6 @@ document.getElementById("booking_form").addEventListener("submit", function(even
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
 
-
-
     if (startDateObj < today || endDateObj < today){
         displayMessage("You cannot book past dates.", "error");
         return;
@@ -170,6 +167,15 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 
     if (!checkAvailability(listingId , startDate , endDate)){
         displayMessage("These dates are already booked.","error");
+        return;
+    }
+
+    let expiryDateValue = document.getElementById("expiry-date").value;
+    let expiryDateYear = parseInt(expiryDateValue.split(`/`)[1], 10);
+    const currentyear = new Date().getFullYear();
+
+    if (expiryDateYear < currentyear % 100){
+        displayMessage("Invalid credit card year, Please enter a valid year.", "error");
         return;
     }
 
@@ -189,15 +195,12 @@ console.log("Apartment image URL:", apartment.picture_url); // בדיקה אם �
         bookingDate: new Date().toISOString().split('T')[0]
     };
 
-
-
     userBookings.push(booking);
 
     localStorage.setItem(key, JSON.stringify(userBookings));
     //בדיקות נוספות
     console.log("Booking key:", key);
     console.log("Saved booking data:", localStorage.getItem(key));
-
 
     displayMessage("Booking confirmed! Redirecting to My Bookings." , "success");
 

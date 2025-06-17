@@ -55,11 +55,11 @@ document.addEventListener('DOMContentLoaded', function(){
               </div>
                <div class="booking-details">
                 <h4>${booking.apartmentName}</h4>
-                <p><strong>Booking ID:</strong> ${booking.id}</p>
-                <p><strong>Check-in:</strong> ${booking.startDate}</p>
-                <p><strong>Check-out:</strong> ${booking.endDate}</p>
-                <p><strong>Price:</strong> ${booking.price}</p>
-                <p><strong>Booking Date:</strong> ${booking.bookingDate}</p>
+                <p><b>Booking ID:</b> ${booking.id}</p>
+                <p><b>Check-in:</b> ${booking.startDate}</p>
+                <p><b>Check-out:</b> ${booking.endDate}</p>
+                <p><b>Price:</b> ${booking.price}</p>
+                <p><b>Booking Date:</b> ${booking.bookingDate}</p>
                 </div>
             `;
 

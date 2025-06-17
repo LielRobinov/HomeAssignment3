@@ -5,7 +5,6 @@
 }
 
 body{
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     font-family: 'Nunito', sans-serif;
@@ -85,8 +84,8 @@ margin-left: 20px;
     border: none;
     opacity: 0.5;
     cursor: pointer;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 14px;
+    font-family: 'Nunito', sans-serif;
 }
 
 #signOutBtn:hover{
