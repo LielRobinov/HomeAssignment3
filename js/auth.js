@@ -30,7 +30,7 @@ function SignUp(event){
     {
         if(usersList[i].username === userName)
         {
-            showPopupMessage("The username already exists in the system. Please try again.");
+            showPopupMessage("This username already exists. Please try again.");
             return;
         }
     }
@@ -39,7 +39,7 @@ usersList.push({username: userName, password: password});
 localStorage.setItem("usersList" , JSON.stringify(usersList));
 
 
-window.location.href = "login.html";
+window.location.href = "index.html";
 }
 
 function LogIn(){
