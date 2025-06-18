@@ -44,9 +44,11 @@ document.addEventListener('DOMContentLoaded', function(){
 
         // עבר על כל ההזמנות וסווג אותן
         allBookings.forEach(booking => {
-            const checkOutDate = new Date(booking.endDate); // תאריך היציאה מהדירה
+            const checkOutDate = new Date(booking.endDate);
+            checkOutDate.setHours(0, 0, 0, 0);
+            const checkInDate = new Date(booking.startDate); 
+            checkInDate.setHours(0, 0, 0, 0);
             
-            // יצירת כרטיס הזמנה (div) עבור כל הזמנה
             const bookingCard = document.createElement('div');
             bookingCard.classList.add('booking-card'); // קלאס לעיצוב, אם יש לך CSS עבורו
             bookingCard.innerHTML = `
@@ -65,18 +67,16 @@ document.addEventListener('DOMContentLoaded', function(){
 
             console.log("Loading image:", booking.apartmentImageUrl);
 
-            // השוואה לתאריך הנוכחי
-            if (checkOutDate < today || (checkOutDate.getTime() <= today.getTime())) {
-                // הזמנות עבר (תאריך יציאה עבר את היום הנוכחי)
+            if (checkInDate.getTime() <= today.getTime()) {
                 pastBookingsContainer.appendChild(bookingCard);
                 hasPast = true;
-            } else {
-                // הזמנות עתידיות (תאריך יציאה עדיין לא הגיע או זה היום)
+            }
+            else 
+            {
                 upcomingBookingsContainer.appendChild(bookingCard);
                 hasUpcoming = true;
 
-                //הוספת כפתור ביטול
-                if(checkOutDate.getTime() > today.getTime()){
+                if(checkOutDate.getTime() >= today.getTime()){
                 const cancelBtn = document.createElement("button");
                 cancelBtn.textContent = "Cancel Booking";
                 cancelBtn.classList.add("cancelBtn");

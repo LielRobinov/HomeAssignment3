@@ -27,8 +27,8 @@ h2{
 }
 
 .category {
-    margin-bottom: 40px;
-    padding: 20px;
+    margin-bottom: 5px;
+    padding: 10px;
     border: 1px solid #e0e0e0; 
     border-radius: 8px; 
     background-color: #fcfcfc;
@@ -37,11 +37,11 @@ h2{
 .category h3 {
     font-size: 26px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     text-align: start;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-left: 5px;
 }
-
 
 .noBookingsMessage{
   text-align: center;
@@ -52,7 +52,6 @@ h2{
   border-radius: 5px;
   margin-bottom: 10px;
   width: 100%;
-  /* max-width: 800px; */
   height: auto;
 }
 
@@ -113,7 +112,7 @@ h2{
 @media (max-width: 768px) {
     .category{
         margin-bottom: 20px;
-        padding: 10px;
+        padding:15px;
     }
 
    .my-bookings-section {
@@ -129,7 +128,7 @@ h2{
 
     .category h3 {
         font-size: 24px; 
-        margin-top: 15px;
+        margin-top: 10px;
         margin-bottom: 10px;
     }
 
