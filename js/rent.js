@@ -172,10 +172,17 @@ document.getElementById("booking_form").addEventListener("submit", function(even
 
     let expiryDateValue = document.getElementById("expiry-date").value;
     let expiryDateYear = parseInt(expiryDateValue.split(`/`)[1], 10);
+    let expiryDateMonth = parseInt(expiryDateValue.split(`/`)[0], 10);
     const currentyear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1;
 
     if (expiryDateYear < currentyear % 100){
         displayMessage("Invalid credit card year, Please enter a valid year.", "error");
+        return;
+    }
+
+    if(expiryDateYear === (currentyear % 100) && expiryDateMonth < currentMonth){
+        displayMessage("Invalid credit card month, Please enter a valid month.", "error");
         return;
     }
 
