@@ -1,4 +1,5 @@
 // פונקציות כלליות לעבודה עם localStorage
+
 function toggelMenu() {
     const hamburgerBtn = document.querySelector("#hamburgerBtn");
     const icon = hamburgerBtn.querySelector("i");
@@ -40,21 +41,5 @@ else {
 }
 
 })
-//לא יהיה אפשרות להיכנס לעמוד הfavorites עד שלא נוסיף דירה
-// const currentUser = localStorage.getItem('currentUser');
-// if (!currentUser) 
-//     return;
-
-// const key = `${currentUser.username}_favorites`;
-// const favorites = JSON.parse(localStorage.getItem(key)) || [];
-
-// const favoritesLink = document.querySelector('a[href="favorites.html"]');
-// if (favoritesLink) {
-// if (favorites.length === 0) {
-//     favoritesLink.classList.add("disabled-link");
-// } else {
-//     favoritesLink.classList.remove("disabled-link");
-// }
-// }
 
 
