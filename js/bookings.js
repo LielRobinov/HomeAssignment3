@@ -17,18 +17,17 @@ document.addEventListener('DOMContentLoaded', function(){
         const allBookings = JSON.parse(localStorage.getItem(key)) || [];
         console.log("Loaded user bookings:", allBookings);
 
-        // ניקיון קונטיינרים קיימים לפני הוספת הזמנות חדשות
         pastBookingsContainer.innerHTML = '';
         upcomingBookingsContainer.innerHTML = '';
 
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // איפוס זמן להשוואת תאריכים מדויקת לפי יום
+        today.setHours(0, 0, 0, 0); 
 
         let hasUpcoming = false;
         let hasPast = false;
 
-        if (allBookings.length === 0) {
         //הודעות במקרה שאין הזמנות כלל
+        if (allBookings.length === 0) {
         const noPastMessage = document.createElement("p");
         noPastMessage.textContent = "You have no past bookings.";
         noPastMessage.classList.add("noBookingsMessage");
@@ -93,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         })
 
-        // לאחר סיום הלולאה, בדוק אם היו הזמנות בכל קטגוריה
+        // בדיקה אם היו הזמנות בכל קטגוריה
         if (!hasPast) {
            const noPastMessage = document.createElement("p");
            noPastMessage.textContent = "You have no past bookings.";
@@ -118,11 +117,10 @@ document.addEventListener('DOMContentLoaded', function(){
         const key = `${currentUser.username}_bookings`;
         let allBookings = JSON.parse(localStorage.getItem(key)) || [];
 
-        // מחיקת ההזמנה עם `bookingId`
        let updatedBookings = [];
        for (let i = 0; i < allBookings.length; i++) {
         if (allBookings[i].id !== bookingId) {
-        updatedBookings.push(allBookings[i]); // מוסיף רק הזמנות שלא תואמות ל־bookingId
+        updatedBookings.push(allBookings[i]); 
         }}
 
         allBookings = updatedBookings;
@@ -132,6 +130,5 @@ document.addEventListener('DOMContentLoaded', function(){
         loadAndDisplayBookings();
     }
 
-    // קרא וטען את ההזמנות כאשר העמוד נטען
     loadAndDisplayBookings();
 });
