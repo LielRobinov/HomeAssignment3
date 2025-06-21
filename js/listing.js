@@ -120,7 +120,7 @@ function addToFavorites(listing_id){
         }
 }
 
-//מעבר לעמוד
+//מעבר לעמוד ההשכרה
 function RentClick(listingId){
     localStorage.setItem("selectListing" , listingId);
     window.location.href = "rent.html";
