@@ -130,6 +130,7 @@ body, p, label {
     display: block ;
     font-weight: bold;
 }
+
 @media (max-width: 768px) {
     h1{
         font-size: 25px;
@@ -160,9 +161,10 @@ body, p, label {
     max-width: 60%; 
     }
 
-  .ConfirmBtn {
+    .ConfirmBtn {
     max-width: 40%;
     }
+
     h3{
         font-size: 25px;
     }
