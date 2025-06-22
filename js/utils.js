@@ -19,22 +19,9 @@ document.addEventListener("DOMContentLoaded" , function(){
 const signOutBtn = document.getElementById("signOutBtn");
 if(signOutBtn){
 signOutBtn.addEventListener("click", function() {
-localStorage.removeItem("currentUser");
+removeFromStorage("currentUser");
 window.location.href = "login.html";
 })
 }
-
-// בדיקה אם המשתמש מחובר
-let currentUser = loadFromStorage("currentUser");
-let usernameDisplay = document.getElementById("usernameDisplay");
-
-if (!currentUser) {
-    window.location.href = "login.html";
-    return;
-} 
-if (usernameDisplay){
-    usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
-}
-
 
 })

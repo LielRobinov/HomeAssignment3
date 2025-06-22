@@ -39,26 +39,10 @@ if (usernameDisplay){
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
 }
 
-// //בדיקה אם המשתמש מחובר
-// const currentUser = loadFromStorage("currentUser");
-// if (!currentUser) {
-//     window.location.href = 'login.html';
-//     return;
-// }
-
-// const currentUserRaw = localStorage.getItem('currentUser');
-//     if (!currentUserRaw) {
-//         window.location.href = 'login.html';
-//         return;
-//     }
-
-//     const currentUser = JSON.parse(currentUserRaw);
-
     let listingId = loadFromStorage("selectListing");
-    // let listingId = localStorage.getItem("selectListing");
     if (!listingId){
-        displayMessage("Invalid listing Id.", "error");
-        return;
+    displayMessage("Invalid listing Id.", "error");
+    return;
     }
 
     let amsterdam = window.amsterdam || [];
@@ -128,7 +112,6 @@ function checkAvailability(listingId, startDate, endDate) {
     for(let i =0; i<filteredKeys.length; i++)
     {
         let userBookings = loadFromStorage(filteredKeys[i]);
-        // let userBookings = JSON.parse(localStorage.getItem(filteredKeys[i])) || [];
         for(let j=0; j< userBookings.length; j++){
             if (userBookings[j].listingId === listingId){
                 allBookings.push(userBookings[j]);
@@ -149,21 +132,17 @@ function checkAvailability(listingId, startDate, endDate) {
 
 document.getElementById("booking_form").addEventListener("submit", function(event){
     event.preventDefault();
-    // let listingId = localStorage.getItem("selectListing");
     let listingId = loadFromStorage("selectListing");
     let startDate = document.getElementById("start-date").value;
     let endDate = document.getElementById("end-date").value;
-    let currentUserStr = localStorage.getItem("currentUser");
+    let currentUser = loadFromStorage("currentUser");
 
+    if (!currentUser) {
+    window.location.href = "login.html";
+    return;}
 
-    if (!currentUserStr) {
-        window.location.href = "login.html";
-        return;
-    }
-
-    let currentUser = JSON.parse(currentUserStr);
     let key =`${currentUser.username}_bookings`;
-    let userBookings = JSON.parse(localStorage.getItem(key)) || [];
+    let userBookings = loadFromStorage(key);
 
     if(!startDate || !endDate){
         displayMessage("Please select both check-in and check-out dates.", "error");
@@ -206,11 +185,7 @@ document.getElementById("booking_form").addEventListener("submit", function(even
         return;
     }
 
-console.log("Apartment object before booking:", apartment);
-console.log("Apartment name:", apartment.name);
-console.log("Apartment image URL:", apartment.picture_url);
-
-//יצירת הזמנה
+    //יצירת הזמנה
     const booking = {
         id: Date.now(), 
         listingId: listingId,
@@ -224,10 +199,7 @@ console.log("Apartment image URL:", apartment.picture_url);
 
     userBookings.push(booking);
 
-    localStorage.setItem(key, JSON.stringify(userBookings));
-    
-    console.log("Booking key:", key);
-    console.log("Saved booking data:", localStorage.getItem(key));
+    saveToStorage(key, userBookings);
 
     displayMessage("Booking confirmed! Redirecting to My Bookings." , "success");
 

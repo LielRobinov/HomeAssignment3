@@ -17,17 +17,7 @@ function SignUp(event){
     if (password.length < 8){
     showPopupMessage("The password must have a minimum of 8 characters.");
     return;}
-    //קוד חדש
     let usersList = loadFromStorage("usersList");
-
-    //קוד קודם
-    // let usersList = localStorage.getItem("usersList");
-    // if (usersList){
-    // usersList = JSON.parse(usersList);
-    // }
-    // else{
-    // usersList = []; }
-
 
     for (let i =0; i < usersList.length; i++)
     {
@@ -41,9 +31,6 @@ function SignUp(event){
 usersList.push({username: userName, password: password});
 saveToStorage("usersList", usersList);
 
-// localStorage.setItem("usersList" , JSON.stringify(usersList));
-
-
 window.location.href = "index.html";
 }
 
@@ -52,16 +39,6 @@ const userName = document.querySelector("#username").value;
 const password = document.querySelector("#password").value;
 
 let usersList = loadFromStorage("usersList");
-
-//קוד ישן
-// let usersList = localStorage.getItem("usersList");
-
-// if (usersList){
-//     usersList = JSON.parse(usersList);
-// }
-// else{
-//     usersList = [];
-// }
 
 if(!userName || !password)
 {
@@ -77,7 +54,6 @@ for (let i=0 ; i< usersList.length; i++)
         user = true;
         if(usersList[i].password === password){
             saveToStorage("currentUser", usersList[i]);
-            // localStorage.setItem("currentUser" , JSON.stringify(usersList[i]));
             setTimeout(function() {
             window.location.href = "index.html";}, 100);
             return;
@@ -115,4 +91,3 @@ function showPopupMessage(message) {
     }, 300);
   }, 3000);
 }
-
