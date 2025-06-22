@@ -27,15 +27,35 @@ function displayMessage(message, type) {
     let apartment = null;
 
 document.addEventListener("DOMContentLoaded", function(){
-//בדיקה אם המשתמש מחובר
-const currentUserRaw = localStorage.getItem('currentUser');
-    if (!currentUserRaw) {
-        window.location.href = 'login.html';
-        return;
-    }
+// בדיקה אם המשתמש מחובר
+let currentUser = loadFromStorage("currentUser");
+let usernameDisplay = document.getElementById("usernameDisplay");
 
-    const currentUser = JSON.parse(currentUserRaw);
-    let listingId = localStorage.getItem("selectListing");
+if (!currentUser) {
+    window.location.href = "login.html";
+    return;
+} 
+if (usernameDisplay){
+    usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
+}
+
+// //בדיקה אם המשתמש מחובר
+// const currentUser = loadFromStorage("currentUser");
+// if (!currentUser) {
+//     window.location.href = 'login.html';
+//     return;
+// }
+
+// const currentUserRaw = localStorage.getItem('currentUser');
+//     if (!currentUserRaw) {
+//         window.location.href = 'login.html';
+//         return;
+//     }
+
+//     const currentUser = JSON.parse(currentUserRaw);
+
+    let listingId = loadFromStorage("selectListing");
+    // let listingId = localStorage.getItem("selectListing");
     if (!listingId){
         displayMessage("Invalid listing Id.", "error");
         return;
@@ -107,7 +127,8 @@ function checkAvailability(listingId, startDate, endDate) {
     let allBookings = [];
     for(let i =0; i<filteredKeys.length; i++)
     {
-        let userBookings = JSON.parse(localStorage.getItem(filteredKeys[i])) || [];
+        let userBookings = loadFromStorage(filteredKeys[i]);
+        // let userBookings = JSON.parse(localStorage.getItem(filteredKeys[i])) || [];
         for(let j=0; j< userBookings.length; j++){
             if (userBookings[j].listingId === listingId){
                 allBookings.push(userBookings[j]);
@@ -128,7 +149,8 @@ function checkAvailability(listingId, startDate, endDate) {
 
 document.getElementById("booking_form").addEventListener("submit", function(event){
     event.preventDefault();
-    let listingId = localStorage.getItem("selectListing");
+    // let listingId = localStorage.getItem("selectListing");
+    let listingId = loadFromStorage("selectListing");
     let startDate = document.getElementById("start-date").value;
     let endDate = document.getElementById("end-date").value;
     let currentUserStr = localStorage.getItem("currentUser");
