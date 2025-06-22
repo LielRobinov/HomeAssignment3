@@ -16,26 +16,30 @@ function toggelMenu() {
     }
 }
 
-//מעבר לעמוד
-function RentClick(listingId){
-    localStorage.setItem("selectListing" , listingId);
-    window.location.href = "rent.html";
-}
-
+document.addEventListener("DOMContentLoaded" , function(){
 // יציאה מהחשבון
 const signOutBtn = document.getElementById("signOutBtn");
+if(signOutBtn){
 signOutBtn.addEventListener("click", function() {
-    localStorage.removeItem("currentUser");
-    window.location.href = "login.html";
+localStorage.removeItem("currentUser");
+window.location.href = "login.html";
 })
+}
 
 // בדיקה אם המשתמש מחובר
-const currentUserStr = localStorage.getItem("currentUser");
-const usernameDisplay = document.getElementById("usernameDisplay");
+let currentUser = localStorage.getItem("currentUser");
+let usernameDisplay = document.getElementById("usernameDisplay");
 
-if (!currentUserStr) {
+if (!currentUser) {
     window.location.href = "login.html";
-} else {
-    const currentUser = JSON.parse(currentUserStr);
+} 
+else {
+    currentUser = JSON.parse(currentUser);
+    if (usernameDisplay){
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
+    }
 }
+
+})
+
+

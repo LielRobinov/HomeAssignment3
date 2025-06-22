@@ -1,13 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", function() {
 
-
-    if (window.amsterdam && Array.isArray(window.amsterdam)) {
-        displayListings(amsterdam);
-    } else {
+    if (!window.amsterdam || !Array.isArray(window.amsterdam)) {
         console.error("Amsterdam data not found!");
-    }
-
+        return;
+    } 
+    displayListings(window.amsterdam);
+    
     // הצגת הדירות בדף
     function displayListings(listings) {
         const listingsContainer = document.getElementById('listings');
@@ -25,8 +24,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 `<h3>${apartment.name}</h3>` +
                 `<p><b>Id:</b> ${apartment.listing_id}</p>` +
                 `<p><b>Description:</b> <br> ${apartment.description}</p>` +
-                `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View Apartment </a>` +
-                `<button class="favoriteBtn">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
+                `<a href="${apartment.listing_url}" target="_blank" class="card_link" >View apartment details</a>` +
+                `<button class="favoriteBtn" onclick="addToFavorites('${apartment.listing_id}')">Add to favorites <i class="fa-solid fa-heart"></i></button>` +
                 `<button class="rentBtn" onclick="RentClick(${apartment.listing_id})">Rent <i class="fa-solid fa-house"></i></button>`;
 
             listingsContainer.appendChild(card);
@@ -37,18 +36,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const filterBtn = document.getElementById("filterBtn");
     filterBtn.addEventListener("click" , function(event){
         event.preventDefault();
-    })
-
-    filterBtn.addEventListener("click", function() {
-        let minRating = parseFloat(document.getElementById("rating").value);
+        
+        let minRating = parseFloat(document.getElementById("rating").value.trim());
         if(isNaN(minRating)){
             minRating = 0;
         }
-        let minPrice = parseFloat(document.getElementById("minPrice").value);
+        let minPrice = parseFloat(document.getElementById("minPrice").value.trim());
         if(isNaN(minPrice)){
             minPrice = 0;
         }
-        let maxPrice = parseFloat(document.getElementById("maxPrice").value);
+        let maxPrice = parseFloat(document.getElementById("maxPrice").value.trim());
         if(isNaN(maxPrice)){
             maxPrice =Infinity;
         }
@@ -73,10 +70,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
         displayListings(filtered);
-    })
-})
 
-document.addEventListener("DOMContentLoaded", function() {
+        if (filtered.length === 0) {
+        document.getElementById("listings").innerHTML = `<p>No apartments match your search criteria.</p>`;
+        }
+
+    })
+
+
     const roomsSelect = document.getElementById("rooms");
     const minRooms = 1;
     const maxRooms = 10;
@@ -89,12 +90,47 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (window.amsterdam && Array.isArray(window.amsterdam)) {
-        const totalElement = document.createElement("h1");
-        totalElement.textContent = `Total apartments in Amsterdam: ${window.amsterdam.length}`;
+        const totalElement = document.createElement("div");
+        totalElement.innerHTML = `<i class="fa-solid fa-house-chimney"></i><h3>${window.amsterdam.length} Apartments</h3>`;
         totalElement.classList.add("total-info");
 
        const section = document.querySelector("section");
        section.insertBefore(totalElement , section.firstChild);
-}})
+    }
+})
+
+function addToFavorites(listing_id){
+        const currentUserRaw = localStorage.getItem('currentUser');
+        if (!currentUserRaw){
+          window.location.href = 'login.html';
+          return;
+        }
+
+        const currentUser = JSON.parse(currentUserRaw);
+        const key = `${currentUser.username}_favorites`;
+        let favorites = JSON.parse(localStorage.getItem(key)) || [];
+
+        if (!favorites.includes(listing_id)){
+            favorites.push(listing_id);
+            localStorage.setItem(key, JSON.stringify(favorites));
+            alert("Added to favorites!");
+        }
+        else{
+            alert("Already in favorites.");
+        }
+}
+
+//מעבר לעמוד ההשכרה
+function RentClick(listingId){
+    localStorage.setItem("selectListing" , listingId);
+    window.location.href = "rent.html";
+}
+
+
+
+
+
+
+
 
 

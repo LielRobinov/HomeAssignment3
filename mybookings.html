@@ -5,21 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
     <link rel="icon" href="images/icon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/mybookings.css" />
+    <link rel="stylesheet" href="css/mybookings.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito&display=swap">
   </head>
   <body>
     <header>
        <nav>
     <img src="images/icon.ico" alt="weblogo" class="logo">
     
-    <div id="welcomeMessage">
-        <span id="usernameDisplay"></span>
-    </div>
-
     <ul class="navLinks">
+        <li id="usernameDisplay"></li>
         <li><a href="index.html">Home</a></li>
-        <li><a href="rent.html">Rent</a></li>
         <li><a href="mybookings.html" class="active">My Bookings</a></li>
         <li><a href="favorites.html">Favorites</a></li>
         <li><button id="signOutBtn">Sign Out</button></li>
@@ -29,31 +27,33 @@
         <i class="fas fa-bars"></i>
     </button>
     </nav>
-      </header>
-        <main class="container">
-        <h1>My Apartment Bookings</h1>
-        <p id="message" class="info-message"></p>
-        <section id="past-bookings" class="booking-section">
-            <h2>Past Bookings</h2>
-            <div id="past-bookings-list" class="bookings-list">
-                <p class="no-bookings-message">You have no past bookings.</p>
-            </div>
-        </section>
+    </header>
 
-        <section id="upcoming-bookings" class="booking-section">
-            <h2>Upcoming Bookings</h2>
-            <div id="upcoming-bookings-list" class="bookings-list">
-                <p class="no-bookings-message">You have no upcoming bookings.</p>
-            </div>
-        </section>
+<main>
+    <section class="my-bookings-section">
+        <h2>My Apartment Bookings</h2>
 
-    </main>
+        <div class="category">
+            <h3>Past Bookings</h3>
+            <div id="pastBookingsContainer" class="bookings-list">
+            </div>
+        </div>
+
+        <div class="category">
+            <h3>Upcoming Bookings</h3>
+            <div id="upcomingBookingsContainer" class="bookings-list">
+            </div>
+        </div>
+    </section>
+</main>
 
     <footer>
-        <p> 2025 Apartment Rental.. All rights reserved.</p>
+        <p>© 2025 Rent Apartment. All rights reserved.</p>
     </footer>
-    <script src="favorites.js"></script>
-    <script src="js/amsterdam.js"></script>
-    <script src="js/mybookings.js"></script>
+
+    <script src="js/data/amsterdam.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/bookings.js"></script>
   </body>
 </html>
+

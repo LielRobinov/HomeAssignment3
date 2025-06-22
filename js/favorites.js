@@ -1,88 +1,72 @@
-function updateFavoritesNavLinkStatus() {
-    var favorites = JSON.parse(localStorage.getItem('favorites'));
-    var favoritesLink = document.querySelector('nav ul.navLinks li a[href="favorites.html"]');
-
-    if (favoritesLink) {
-        if (!favorites || favorites.length === 0) {
-            favoritesLink.classList.add('disabled-link');
-            favoritesLink.style.pointerEvents = 'none';
-            favoritesLink.style.opacity = '0.6';
-        } else {
-            favoritesLink.classList.remove('disabled-link');
-            favoritesLink.style.pointerEvents = 'auto';
-            favoritesLink.style.opacity = '1';
-        }
+document.addEventListener("DOMContentLoaded", function(){
+    const currentUserRaw = localStorage.getItem('currentUser');
+    if (!currentUserRaw) {
+        window.location.href = 'login.html';
+        return;
     }
-}
-function loadFavorites() {
-    var container = document.getElementById('favorites-container');
-    container.innerHTML = ''; 
 
-    var favorites = JSON.parse(localStorage.getItem('favorites'));
+    const currentUser = JSON.parse(currentUserRaw);
+    const key = `${currentUser.username}_favorites`;
+    const favorites = JSON.parse(localStorage.getItem(key)) || [];
 
-    updateFavoritesNavLinkStatus(); 
+    let container = document.querySelector("#favorites-container");
 
-    if (!favorites || favorites.length === 0) {
-        container.innerHTML = '<p>עדיין לא הוספת מועדפים.</p>';
-        return; }
+    if (!window.amsterdam || !Array.isArray(window.amsterdam)){
+        container.innerHTML += `<p class="noFavoriteMessage">Error: please try again later.</p>`
+        return;
+    }
 
-    for (var i = 0; i < favorites.length; i++) {
-        var id = favorites[i]; 
+    container.innerHTML = `<h1>My Favorite Apartments</h1>`;
 
-        for (var j = 0; j < listings.length; j++) { 
-            if (listings[j].id === id) {
-                var item = listings[j]; 
+    if(favorites.length === 0){
+        container.innerHTML += `<p class="noFavoriteMessage">No preferred apartments to display</p>`;
+        return;
+    }
 
-                var card = document.createElement('div');
-                card.className = 'card';
+    for (let i=0; i < favorites.length; i++){
+        let id = favorites[i];
 
-                var img = document.createElement('img');
-                img.src = item.picture_url;
-                img.alt = item.name;
+        let apt = null;
+        for (let j = 0; j <amsterdam.length; j++){
+            if (String(amsterdam[j].listing_id) === String(id)){
+                apt = amsterdam[j];
+                break;
+            }
+        }
 
-                var title = document.createElement('h3');
-                title.textContent = item.name;
+        if (apt !== null){
+        let card = document.createElement("div");
+        card.className = "card";
 
-                var desc = document.createElement('p');
-                desc.textContent = item.description;
+        card.innerHTML=
+        `<img src="${apt.picture_url }" alt="apartmentImage">` +
+        `<h3>${apt.name}</h3>` +
+        `<p>Neighbourhood: ${apt.neighbourhood}</p>` +
+        `<p>Price: ${apt.price}</p>` +
+        `<p>Rating: ${apt.review_scores_rating}</p>` +
+        `<button onclick="removeFavorite(${apt.listing_id})">Remove</button>`;
 
-                var btn = document.createElement('button');
-                btn.textContent = 'הסר';
-                btn.onclick = (function(idToRemove) {
-                    return function() {
-                        removeFavorite(idToRemove); }; })(item.id);
+        container.appendChild(card);
+       }
+    }
+})
 
-                card.appendChild(img);
-                card.appendChild(title);
-                card.appendChild(desc);
-                card.appendChild(btn);
+function removeFavorite(id){
+    let currentUserRaw = localStorage.getItem('currentUser');
+    if (!currentUserRaw) 
+        return;
 
-                container.appendChild(card);
-                break;  } }}}
+    let currentUser = JSON.parse(currentUserRaw);
+    let key = `${currentUser.username}_favorites`;
+    let favorites = JSON.parse(localStorage.getItem(key)) || [];
 
-    function removeFavorite(id) {
-    var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-    var newFavorites = []; 
-
-    for (var i = 0; i < favorites.length; i++) {
-        if (favorites[i] !== id) {
+    let newFavorites = [];
+    for (let i =0; i < favorites.length; i++){
+        if (String(favorites[i]) !== String(id)) {
             newFavorites.push(favorites[i]);
         }
     }
-
-    localStorage.setItem('favorites', JSON.stringify(newFavorites)); 
-    loadFavorites(); 
-    updateFavoritesNavLinkStatus(); 
+    localStorage.setItem(key,JSON.stringify(newFavorites));
+    location.reload();
 }
 
-window.addEventListener('load', function() {
-    var currentUser = localStorage.getItem('currentUser'); 
-    if (!currentUser) {
-        window.location.href = 'login.html';
-    } else {
-        if (typeof loadFavorites === 'function') {
-            loadFavorites(); 
-        }
-        updateFavoritesNavLinkStatus(); 
-    }
-});

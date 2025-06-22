@@ -1,159 +1,134 @@
 //  הוספה/ביטול השכרות, לפי currentUser
 
-const pastBookingsList = document.getElementById('past-bookings-list');
-const upcomingBookingsList = document.getElementById('upcoming-bookings-list');
-const noPastBookingsMessage = pastBookingsList.querySelector('.no-bookings-message');
-const noUpcomingBookingsMessage = upcomingBookingsList.querySelector('.no-bookings-message');
-const messageElement = document.getElementById('message'); 
-const userInfoElement = document.getElementById('user-info');
-
-/*   const allListings = typeof listings !== 'undefined' ? listings : [];   */
-let currentUser = null;
-
-function showGeneralMessage(text, type = 'info') {
-    messageElement.textContent = text;
-    messageElement.className = 'general-message'; // קלאס בסיסי
-    if (type === 'error') { messageElement.classList.add('error-message'); }
-    else if (type === 'success') { messageElement.classList.add('success-message'); }
-    messageElement.style.display = 'block';
-}
-
-function hideGeneralMessage() {
-    messageElement.style.display = 'none';
-    messageElement.textContent = '';
-}
-
-
-function loadBookings() {
-    const bookingsKey = `_bookings${currentUser}`;
-    return JSON.parse(localStorage.getItem(bookingsKey)) || [];
-}
-
-function saveBookings(bookings) {
-    const bookingsKey = `_bookings${currentUser}`;
-    localStorage.setItem(bookingsKey, JSON.stringify(bookings));
-}
-
-function handleCancelBooking(bookingId) {
-    let bookings = loadBookings();
-    const initialLength = bookings.length;
-    bookings = bookings.filter(booking => booking.bookingId !== bookingId);
-
-    if (bookings.length < initialLength) {
-        saveBookings(bookings);
-        displayBookings();
-        showGeneralMessage('Booking cancelled successfully!', 'success');
-    } else {
-        showGeneralMessage('Failed to cancel booking.', 'error');
-    }
-}
-
-
-function createBookingCardElement(booking, isUpcoming) {
-    const bookingDiv = document.createElement('div');
-    bookingDiv.classList.add('booking-item');
-
-    const listing = allListings.find(l => l.listing_id === booking.listingId);
-    const apartmentName = listing ? listing.name : 'Unknown Apartment';
-    const apartmentImage = listing ? listing.picture_url : 'images/placeholder.jpg';
-
-    // תמונה
-    const imgElement = document.createElement('img');
-    imgElement.src = apartmentImage;
-    imgElement.alt = apartmentName;
-    imgElement.classList.add('booking-image');
-    bookingDiv.appendChild(imgElement);
-
-    // שם הדירה
-    const titleElement = document.createElement('h3');
-    titleElement.textContent = apartmentName;
-    bookingDiv.appendChild(titleElement);
-
-    // פרטים בסיסיים (Booking ID, Check-in, Check-out, Total Price)
-    // הוספת פסקאות וספנים מודגשים
-    const details = [
-        { label: 'Booking ID', value: booking.bookingId },
-        { label: 'Check-in', value: booking.checkInDate, className: 'booking-dates' },
-        { label: 'Check-out', value: booking.checkOutDate, className: 'booking-dates' },
-        { label: 'Total Price', value: `$${booking.totalPrice}` }
-    ];
-
-    details.forEach(detail => {
-        const p = document.createElement('p');
-        if (detail.className) p.classList.add(detail.className);
-
-        const spanLabel = document.createElement('span');
-        spanLabel.classList.add('label-bold');
-        spanLabel.textContent = detail.label + ': ';
-        p.appendChild(spanLabel);
-        p.appendChild(document.createTextNode(detail.value));
-        bookingDiv.appendChild(p);
-    });
-
-    // **הוספת כפתור ביטול רק אם זו השכרה עתידית**
-    if (isUpcoming) {
-        const cancelButton = document.createElement('button');
-        cancelButton.textContent = 'Cancel Booking';
-        cancelButton.classList.add('cancel-button');
-        cancelButton.dataset.bookingId = booking.bookingId; // שומר את ה-ID על הכפתור
-        
-        cancelButton.addEventListener('click', (event) => {
-            const bookingIdToCancel = event.target.dataset.bookingId;
-            handleCancelBooking(bookingIdToCancel);
-        });
-        bookingDiv.appendChild(cancelButton);
-    }
-
-    return bookingDiv;
-}
-
-
-function displayBookings() {
-    const bookings = loadBookings(); // טען את כל ההזמנות
+document.addEventListener('DOMContentLoaded', function(){
     
-    // נקה את המקטעים לפני הצגה
-    pastBookingsList.innerHTML = '';
-    upcomingBookingsList.innerHTML = '';
+    const pastBookingsContainer = document.getElementById('pastBookingsContainer');
+    const upcomingBookingsContainer = document.getElementById('upcomingBookingsContainer');
 
-    let hasPastBookings = false;
-    let hasUpcomingBookings = false;
+    function loadAndDisplayBookings() {
+        const currentUserRaw = localStorage.getItem("currentUser");
+        if (!currentUserRaw) {
+           window.location.href = "login.html";
+           return;
+        }
 
-    // הצג הודעה כללית אם אין הזמנות בכלל
-    if (bookings.length === 0) {
-        showGeneralMessage("You currently have no apartment bookings.", "info");
-        noPastBookingsMessage.style.display = 'block';
-        noUpcomingBookingsMessage.style.display = 'block';
-        return;
-    } else {
-        hideGeneralMessage(); // הסתר הודעה כללית אם יש הזמנות
+        const currentUser = JSON.parse(currentUserRaw);
+        const key = `${currentUser.username}_bookings`;
+        const allBookings = JSON.parse(localStorage.getItem(key)) || [];
+        console.log("Loaded user bookings:", allBookings);
+
+        pastBookingsContainer.innerHTML = '';
+        upcomingBookingsContainer.innerHTML = '';
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); 
+
+        let hasUpcoming = false;
+        let hasPast = false;
+
+        //הודעות במקרה שאין הזמנות כלל
+        if (allBookings.length === 0) {
+        const noPastMessage = document.createElement("p");
+        noPastMessage.textContent = "You have no past bookings.";
+        noPastMessage.classList.add("noBookingsMessage");
+        pastBookingsContainer.appendChild(noPastMessage);
+
+        const noUpcomingMessage = document.createElement("p");
+        noUpcomingMessage.textContent = "You have no upcoming bookings.";
+        noUpcomingMessage.classList.add("noBookingsMessage");
+        upcomingBookingsContainer.appendChild(noUpcomingMessage);
+
+        return; 
+        }
+
+        // עבר על כל ההזמנות וסווג אותן
+        allBookings.forEach(booking => {
+            const checkOutDate = new Date(booking.endDate);
+            checkOutDate.setHours(0, 0, 0, 0);
+            const checkInDate = new Date(booking.startDate); 
+            checkInDate.setHours(0, 0, 0, 0);
+            
+            const bookingCard = document.createElement('div');
+            bookingCard.classList.add('booking-card');
+            bookingCard.innerHTML = `
+             <div class="booking-image-container">
+                   <img src="${booking.apartmentImageUrl}" alt="${booking.apartmentName}" class="booking-image">
+              </div>
+               <div class="booking-details">
+                <h4>${booking.apartmentName}</h4>
+                <p><b>Booking ID:</b> ${booking.id}</p>
+                <p><b>Check-in:</b> ${booking.startDate}</p>
+                <p><b>Check-out:</b> ${booking.endDate}</p>
+                <p><b>Price:</b> ${booking.price}</p>
+                <p><b>Booking Date:</b> ${booking.bookingDate}</p>
+                </div>
+            `;
+
+            console.log("Loading image:", booking.apartmentImageUrl);
+
+            if (checkInDate.getTime() <= today.getTime()) {
+                pastBookingsContainer.appendChild(bookingCard);
+                hasPast = true;
+            }
+            else 
+            {
+                upcomingBookingsContainer.appendChild(bookingCard);
+                hasUpcoming = true;
+
+                if(checkOutDate.getTime() >= today.getTime()){
+                const cancelBtn = document.createElement("button");
+                cancelBtn.textContent = "Cancel Booking";
+                cancelBtn.classList.add("cancelBtn");
+                cancelBtn.addEventListener("click", function(){
+                cancelBooking(booking.id);
+                })
+
+                bookingCard.querySelector(".booking-details").appendChild(cancelBtn);
+                }
+            }
+
+            console.log("Today's date (timestamp):", today.getTime());
+            console.log("Booking checkout date (timestamp):", checkOutDate.getTime());
+
+        })
+
+        // בדיקה אם היו הזמנות בכל קטגוריה
+        if (!hasPast) {
+           const noPastMessage = document.createElement("p");
+           noPastMessage.textContent = "You have no past bookings.";
+           noPastMessage.classList.add("noBookingsMessage");
+           pastBookingsContainer.appendChild(noPastMessage)
+        }
+        if (!hasUpcoming) {
+            const noUpcomingMessage = document.createElement("p");
+            noUpcomingMessage.textContent = "You have no upcoming bookings.";
+            noUpcomingMessage.classList.add("noBookingsMessage");
+            upcomingBookingsContainer.appendChild(noUpcomingMessage);
+        }
     }
 
-    const now = new Date(); // תאריך נוכחי להשוואה
-
-    bookings.forEach(booking => {
-        const checkOutDate = new Date(booking.checkOutDate); // תאריך סיום ההשכרה
-
-        let isUpcoming = false;
-        if (checkOutDate > now) { // אם תאריך היציאה עתידי, זו השכרה עתידית
-            isUpcoming = true;
+    function cancelBooking(bookingId){
+        const currentUserRaw = localStorage.getItem("currentUser");
+        if (!currentUserRaw) {
+            return;
         }
 
-        // צור את כרטיס ההזמנה ושלח לו אם הוא עתידי (כדי להוסיף כפתור ביטול)
-        const bookingCard = createBookingCardElement(booking, isUpcoming);
+        const currentUser = JSON.parse(currentUserRaw);
+        const key = `${currentUser.username}_bookings`;
+        let allBookings = JSON.parse(localStorage.getItem(key)) || [];
 
-        // הוסף את הכרטיס למקטע המתאים
-        if (isUpcoming) {
-            upcomingBookingsList.appendChild(bookingCard);
-            hasUpcomingBookings = true;
-        } else {
-            pastBookingsList.appendChild(bookingCard);
-            hasPastBookings = true;
-        }
-    });
+       let updatedBookings = [];
+       for (let i = 0; i < allBookings.length; i++) {
+        if (allBookings[i].id !== bookingId) {
+        updatedBookings.push(allBookings[i]); 
+        }}
 
-    // הצג/הסתר הודעות "אין הזמנות" ספציפיות
-    noPastBookingsMessage.style.display = hasPastBookings ? 'none' : 'block';
-    noUpcomingBookingsMessage.style.display = hasUpcomingBookings ? 'none' : 'block';
-}
+        allBookings = updatedBookings;
 
-document.addEventListener('DOMContentLoaded', checkLoginStatusAndInit); // קרא לפונקציה הראשונית
+        localStorage.setItem(key, JSON.stringify(allBookings));
+
+        loadAndDisplayBookings();
+    }
+
+    loadAndDisplayBookings();
+});

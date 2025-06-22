@@ -3,30 +3,34 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
-    <script defer src="js/auth.js"></script>
+    <title>Login</title>
     <link rel="icon" href="images/icon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   </head>
   <body>
-    <div class="container">
-      <div class="form_container">
-      <h1>Sign in</h1>
 
+    <div class="container">
+    <div class="form_container">
+      <h1>Sign in</h1>
       <form> 
-      <label>Username</label> <br>
-      <input id="username" type="text" placeholder="Username"> <br> <br>
-      <label>Password</label> <br>
-      <input id="password" type="password" placeholder="Password"> <br> <br>
+      <label><i class="fa-solid fa-user"></i> Username</label>
+      <input id="username" type="text" placeholder="Username" required>
+      
+      <label><i class="fa-solid fa-lock"></i> Password</label>
+      <input id="password" type="password" placeholder="Password" required>
 
       <div class="button_group">
       <button id="btn_login" type="button" onclick="LogIn()">Log in</button>
       <button id="btn_register" type="button" onclick="Registration(event)">Register</button>
       </div>
-
+      
+      <div id="popupMessage" class="popup-message hidden"></div>
     </form>
-    </div>
-    </div>
-    <script src="favorites.js"></script>
+  </div>
+  </div>
+
+    <script src="js/auth.js"></script>
   </body>
 </html>

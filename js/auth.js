@@ -10,14 +10,13 @@ function SignUp(event){
     const userName = document.querySelector("#username").value;
     const password = document.querySelector("#password").value;
 
-    if(!userName || !password){
-    alert("Please fill in both username and password.");
+    if(!userName.trim() || !password.trim()){
+    showPopupMessage("Please fill in both username and password.");
     return;}
 
     if (password.length < 8){
-        alert ("The password must have a minimum of 8 characters.");
-        return;
-    }
+    showPopupMessage("The password must have a minimum of 8 characters.");
+    return;}
 
     let usersList = localStorage.getItem("usersList");
     if (usersList){
@@ -31,7 +30,7 @@ function SignUp(event){
     {
         if(usersList[i].username === userName)
         {
-            alert ("The username already exists in the system. Please try again.");
+            showPopupMessage("This username already exists. Please try again.");
             return;
         }
     }
@@ -40,8 +39,7 @@ usersList.push({username: userName, password: password});
 localStorage.setItem("usersList" , JSON.stringify(usersList));
 
 
-alert("Registration successful! You can now log in.");
-window.location.href = "login.html";
+window.location.href = "index.html";
 }
 
 function LogIn(){
@@ -57,26 +55,55 @@ else{
     usersList = [];
 }
 
-if(!userName || !password){
- alert("Please fill in both username and password.");
- return;
-}
-
-let user = null;
-for (let i=0 ; i< usersList.length; i++)
+if(!userName || !password)
 {
-    if(usersList[i].username === userName && usersList[i].password === password)
-    {
-        user = usersList[i];
-        break;
-    }
-}
-
-if (user === null) {
-    alert("Incorrect username or password, or the user is not registered.");
+    showPopupMessage("Please fill in both username and password.");
     return;
 }
 
-localStorage.setItem("currentUser", JSON.stringify(user));
-window.location.href = "index.html";
+let user = false;
+for (let i=0 ; i< usersList.length; i++)
+{
+    if(usersList[i].username === userName)
+    {
+        user = true;
+        if(usersList[i].password === password){
+            localStorage.setItem("currentUser" , JSON.stringify(usersList[i]));
+            setTimeout(function() {
+            window.location.href = "index.html";}, 100);
+            return;
+        }
+        else{
+            showPopupMessage("Incorrect password");
+            return;
+        }
+    }
 }
+if (!user) {
+        showPopupMessage("User not found. Please register first.");
+    }
+
+}
+
+
+function LogIn2(event){
+    event.preventDefault();
+    window.location.href = "login.html";
+}
+
+function showPopupMessage(message) {
+  var popup = document.getElementById("popupMessage");
+  popup.textContent = message;
+  popup.classList.remove("hidden");
+  
+  setTimeout(function() {
+    popup.classList.add("show");
+  }, 10)
+    setTimeout(function() {
+    popup.classList.remove("show");
+    setTimeout(function() {
+      popup.classList.add("hidden");
+    }, 300);
+  }, 3000);
+}
+

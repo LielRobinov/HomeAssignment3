@@ -5,21 +5,43 @@
 }
 html , body{
     height: 100%;
-}
-html{
-    scroll-behavior: smooth;
+    width: 100%;
 }
 
 body{
-    background-image: url(/images/backgroundImg.jpg);
+    background-image: url(/images/loginBackground.jpg);
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
+
+body::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    filter: brightness(0.9); 
+    z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1); 
+  z-index: -1;
+}
+
 .disabled-link {
     pointer-events: none;
-    color: gray;}
+    color: gray;
+}
 
 .container{
     display: flex;
@@ -33,18 +55,19 @@ body{
 .form_container > h1{
     margin-bottom: 15px;
     cursor:default;
-    font-style: normal;
     opacity:0.7;
 }
 
 .form_container{
-    background-color: #d5d2cf;
+    background-color: #aab2b6;
+    opacity: 0.8;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    gap: 10px;
+    padding: 30px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
     max-width: 300px;
     width: 100%;
@@ -54,12 +77,14 @@ input{
     background: rgba(225 , 225 , 225 ,1.1);
     height: 40px;
     width: 100%;
-    max-width: 200px;
+    max-width: 250px;
     border-radius: 10px;
     padding: 5px;
     margin-top: 5px;
     border: none;
     outline: none;
+    margin-bottom: 30px;
+
 }
 input:hover{
     background-color: #c4c3c3;
@@ -77,6 +102,8 @@ button{
     border-radius: 10px;
     border: none;
     margin-bottom: 5px;
+    font-family: 'Nunito', sans-serif;
+
 }
 
 .button_group {
@@ -92,18 +119,44 @@ button:hover{
     background-color: #c4c3c3;
 }
 
+.popup-message{
+    color: #721c24;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: -10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.popup-message.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+.popup-message.hidden{
+    display: none;
+}
+
 @media only screen and (max-width: 767px)
 {
     .form_container > h1{
     font-size: 30px;
     text-align: center;
     }
+    .form_container{
+        width: 90%;
+    }
     
     form{
+        width: 90%;
         flex-wrap: wrap;
     }
 
     label{
         font-size: 14px;
+    }
+    .popup-message{
+        text-align: center;
     }
 }

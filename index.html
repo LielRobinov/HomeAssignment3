@@ -3,31 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title></title>
+    <title>Home</title>
     <link rel="icon" href="images/icon.ico" type="image/x-icon" />
     <script src="js/data/amsterdam.js" defer></script>
     <script src="js/listing.js" defer></script>
     <script src="js/storage.js" defer></script>
-    <link rel="stylesheet" href="css/home.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
   </head>
+  
   <body>
-
     <header>
       <nav>
     <img src="images/icon.ico" alt="weblogo" class="logo">
     
-    <div id="welcomeMessage">
-        <span id="usernameDisplay"></span>
-    </div>
-
     <ul class="navLinks">
+        <li id="usernameDisplay"></li>
         <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="rent.html">Rent</a></li>
         <li><a href="mybookings.html">My Bookings</a></li>
-        <li><a href="favorites.html">Favorites</a></li>
+        <li><a href="favorites.html" id="favoritesLink">Favorites</a></li>
         <li><button id="signOutBtn">Sign Out</button></li>
     </ul>
 
@@ -54,17 +50,14 @@
             <select id="rooms"> </select> <br> 
 
             <button id="filterBtn">Filter</button>
-            </form>
+          </form>
         </section>
 
-        <section id="listings" class="listings">
-        </section>
+        <section id="listings" class="listings"></section>
     </main>
 
     <footer>
       <p>© 2025 Rent Apartment. All rights reserved.</p>
     </footer>
-    <script src="favorites.js"></script>
-    <script src="script.js"></script>
   </body>
 </html>
