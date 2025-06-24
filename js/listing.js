@@ -1,14 +1,13 @@
-
-document.addEventListener("DOMContentLoaded", function() {
     // בדיקה אם המשתמש מחובר
     const currentUser = loadFromStorage("currentUser");
-    let usernameDisplay = document.getElementById("usernameDisplay");
-
     if (!currentUser) {
     window.location.href = "login.html";
     return;
     } 
-    if (usernameDisplay){
+
+document.addEventListener("DOMContentLoaded", function() {
+    let usernameDisplay = document.getElementById("usernameDisplay");
+    if (usernameDisplay && currentUser.username){
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
     }
 
