@@ -1,13 +1,18 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const currentUserRaw = localStorage.getItem('currentUser');
-    if (!currentUserRaw) {
-        window.location.href = 'login.html';
-        return;
-    }
+    // בדיקה אם המשתמש מחובר
+    const currentUser = loadFromStorage("currentUser");
+    let usernameDisplay = document.getElementById("usernameDisplay");
 
-    const currentUser = JSON.parse(currentUserRaw);
+    if (!currentUser) {
+    window.location.href = "login.html";
+    return;
+    } 
+    if (usernameDisplay){
+    usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
+    }    
+
     const key = `${currentUser.username}_favorites`;
-    const favorites = JSON.parse(localStorage.getItem(key)) || [];
+    const favorites = loadFromStorage(key);
 
     let container = document.querySelector("#favorites-container");
 
@@ -52,13 +57,12 @@ document.addEventListener("DOMContentLoaded", function(){
 })
 
 function removeFavorite(id){
-    let currentUserRaw = localStorage.getItem('currentUser');
-    if (!currentUserRaw) 
+    let currentUser = loadFromStorage("currentUser");
+    if (!currentUser) 
         return;
 
-    let currentUser = JSON.parse(currentUserRaw);
     let key = `${currentUser.username}_favorites`;
-    let favorites = JSON.parse(localStorage.getItem(key)) || [];
+    let favorites =loadFromStorage(key);
 
     let newFavorites = [];
     for (let i =0; i < favorites.length; i++){
@@ -66,7 +70,6 @@ function removeFavorite(id){
             newFavorites.push(favorites[i]);
         }
     }
-    localStorage.setItem(key,JSON.stringify(newFavorites));
+    saveToStorage(key, newFavorites);
     location.reload();
 }
-

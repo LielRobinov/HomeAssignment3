@@ -37,6 +37,7 @@
         <div id="listing_info"></div>
         <div id="map"></div>
     </section>
+    
     <section>
         <form id="booking_form">
         <h3>Book Your Stay <i class="fa-solid fa-credit-card"></i></h3>
@@ -54,7 +55,7 @@
         <input type="email" id="email" name="email" required>
 
         <label for="credit-card">Credit Card Number:</label>
-        <input type="text" id="credit-card" name="creditCard" placeholder="0000-0000-0000-0000" pattern="\d{13,16}" title="13 to 16 digits" required autocomplete="cc-number">
+        <input type="text" id="credit-card" name="creditCard" pattern="\d{13,16}" title="13 to 16 digits" required autocomplete="cc-number">
 
         <label for="expiry-date">Expiry Date (MM/YY):</label>
         <input type="text" id="expiry-date" name="expiryDate" pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" required autocomplete="cc-exp">
@@ -75,6 +76,7 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="js/data/amsterdam.js"></script>
     <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>   
     <script src="js/rent.js"></script>
 
   </body>
