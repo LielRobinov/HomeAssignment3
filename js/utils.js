@@ -15,7 +15,6 @@ function toggelMenu() {
 }
 
 document.addEventListener("DOMContentLoaded" , function(){
-// יציאה מהחשבון
 const signOutBtn = document.getElementById("signOutBtn");
 if(signOutBtn){
 signOutBtn.addEventListener("click", function() {
