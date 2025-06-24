@@ -86,7 +86,7 @@ select{
 .filters{
     padding: 30px;
     color: black;
-    background-image: url(/images/backgroundSection.png);
+    background-image: url(../images/backgroundSection.png);
     position: relative;
     background-position: center;
     background-size: cover;
