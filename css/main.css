@@ -129,7 +129,6 @@ footer{
 @media only screen and (max-width: 767px){
     .hamburger{
         display: block;
-        z-index: 5;
         color: black;
     }
 
@@ -147,11 +146,11 @@ footer{
         flex-direction: column; 
         background-color: #525a60; 
         position: fixed;
-        top: 0;
+        top: 100px;
         right: -250px; 
-        width: 250px; 
+        width: 245px; 
         height: 100%; 
-        padding-top: 100px;
+        padding-top: 0px;
         transition: right 0.3s ease;
         z-index: 2;
     }

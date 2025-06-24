@@ -12,7 +12,6 @@ padding: 10px;
 border-radius: 10px;
 box-shadow: 0 4px 8px rgba(25, 25, 26, 0.9);
 border: 1.5px solid #7a878f;
-margin-bottom: 0px;
 width: fit-content;  
 margin-bottom: 15px;  
 }
@@ -48,7 +47,7 @@ label{
 }
 
 input{
-    background: rgba(225 , 225 , 225 ,1.1);
+    background: rgba(225 , 225 , 225 ,0.9);
     height: 30px;
     width: 100%;
     max-width: 200px;
@@ -128,8 +127,7 @@ select{
     text-align: center;
     padding: 15px;
     width:350px;
-    margin-bottom: 20px;
-    margin: 10px 10px;
+    margin: 10px;
     box-shadow: 0 2px 8px rgba(139, 158, 174, 0.8);
     background-color: #ededed;
     word-wrap: break-word;
