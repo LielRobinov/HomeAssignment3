@@ -31,11 +31,11 @@ document.addEventListener("DOMContentLoaded", function(){
 let currentUser = loadFromStorage("currentUser");
 let usernameDisplay = document.getElementById("usernameDisplay");
 
-if (!currentUser) {
+if (!currentUser.username) {
     window.location.href = "login.html";
     return;
 } 
-if (usernameDisplay){
+if (usernameDisplay && currentUser.username){
     usernameDisplay.textContent = `Welcome, ${currentUser.username}`;
 }
 
