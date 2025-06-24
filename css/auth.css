@@ -9,7 +9,7 @@ html , body{
 }
 
 body{
-    background-image: url(/images/loginBackground.jpg);
+    background-image: url(../images/loginBackground.jpg);
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
