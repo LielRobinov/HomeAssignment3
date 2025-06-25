@@ -154,15 +154,16 @@ body, p, label {
     }
 
     form {
-    max-width: 70%;
+    max-width: 80%;
     }
 
    input {
-    max-width: 60%; 
+    max-width: 70%; 
     }
 
     .ConfirmBtn {
     max-width: 40%;
+    color: #333;
     }
 
     h3{

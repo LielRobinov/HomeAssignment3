@@ -237,4 +237,9 @@ select{
     select, input[type="number"] {
     font-size: 14px;
     }
+
+    .favoriteBtn ,
+    .rentBtn{
+    color: black;
+    }
 }
