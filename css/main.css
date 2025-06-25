@@ -141,7 +141,7 @@ footer{
         right: -250px; 
         width: 250px; 
         height: 100%; 
-        padding-top: 0px;
+        padding-top: 10px;
         transition: right 0.3s ease;
         z-index: 2;
     }
@@ -156,11 +156,10 @@ footer{
     }
 
     .navLinks.show{
-     display: flex; 
      right: 0;
     }
 
     .navLinks li{
-        margin: 15px ;
+        margin: 15px;
     }
 }
